@@ -1,0 +1,121 @@
+---
+const stories = [
+	{ id: 1, label: 'Historia 1' },
+	{ id: 2, label: 'Historia 2' },
+	{ id: 3, label: 'Historia 3' },
+	{ id: 4, label: 'Historia 4' },
+	{ id: 5, label: 'Historia 5' },
+	{ id: 6, label: 'Historia 6' },
+];
+---
+
+<section class="stories-items">
+	<div class="stories-carousel">
+		<div class="carousel-track">
+			{stories.map((story) => (
+				<div class="carousel-item">
+					<div class="carousel-video-placeholder">
+						<span class="carousel-video-label">{story.label}</span>
+					</div>
+				</div>
+			))}
+		</div>
+	</div>
+	<p class="carousel-hint">Desliza para ver más →</p>
+</section>
+
+<style>
+	.stories-items {
+		width: 100%;
+		padding: 2rem 0;
+	}
+
+	.stories-carousel {
+		max-width: 80ch;
+		margin: 0 auto;
+		padding: 0 0.5rem;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+		cursor: grab;
+	}
+
+	.stories-carousel::-webkit-scrollbar {
+		display: none;
+	}
+
+	.carousel-track {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.carousel-item {
+		flex: 0 0 calc(55% - 0.5rem);
+		min-width: 0;
+	}
+
+	.carousel-video-placeholder {
+		width: 100%;
+		aspect-ratio: 9 / 16;
+		background: #2d2a7c;
+		border-radius: 0.75rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.carousel-video-label {
+		color: #888;
+		font-size: 0.9rem;
+	}
+
+	.carousel-hint {
+		text-align: center;
+		color: #999;
+		font-size: 0.8rem;
+		margin: 1rem 0 0;
+	}
+
+	@media (min-width: 768px) {
+		.stories-carousel {
+			padding: 0 1.5rem;
+		}
+
+		.carousel-item {
+			flex: 0 0 calc(33.333% - 0.667rem);
+		}
+	}
+</style>
+
+<script>
+	const carousel = document.querySelector('.stories-carousel') as HTMLElement;
+	let isDown = false;
+	let startX: number;
+	let scrollLeft: number;
+
+	carousel.addEventListener('mousedown', (e) => {
+		isDown = true;
+		carousel.style.cursor = 'grabbing';
+		startX = e.pageX - carousel.offsetLeft;
+		scrollLeft = carousel.scrollLeft;
+	});
+
+	carousel.addEventListener('mouseleave', () => {
+		isDown = false;
+		carousel.style.cursor = 'grab';
+	});
+
+	carousel.addEventListener('mouseup', () => {
+		isDown = false;
+		carousel.style.cursor = 'grab';
+	});
+
+	carousel.addEventListener('mousemove', (e) => {
+		if (!isDown) return;
+		e.preventDefault();
+		const x = e.pageX - carousel.offsetLeft;
+		const walk = (x - startX) * 1.5;
+		carousel.scrollLeft = scrollLeft - walk;
+	});
+</script>

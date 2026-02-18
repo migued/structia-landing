@@ -1,0 +1,49 @@
+---
+interface Props {
+	text: string;
+	href?: string;
+	type?: 'button' | 'submit';
+}
+const { text, href, type = 'button' } = Astro.props;
+---
+
+{href ? (
+	<a href={href} class="gradient-button">
+		{text}
+	</a>
+) : (
+	<button type={type} class="gradient-button">
+		{text}
+	</button>
+)}
+
+<style>
+	.gradient-button {
+		display: inline-block;
+		padding: 1rem 4rem;
+		font-size: 1.3rem;
+		font-weight: 600;
+		color: #fff;
+		text-decoration: none;
+		border: none;
+		border-radius: 0.5rem;
+		cursor: pointer;
+		background: linear-gradient(90deg, #004aad, #cb6ce6);
+		box-shadow: 0 4px 14px rgba(0, 74, 173, 0.35);
+		transition: box-shadow 0.3s ease, transform 0.2s ease;
+		font-family: inherit;
+	}
+	.gradient-button:hover {
+		box-shadow: 0 6px 24px rgba(203, 108, 230, 0.5), 0 0 30px rgba(0, 74, 173, 0.25);
+		transform: translateY(-1px);
+	}
+	.gradient-button:active {
+		transform: translateY(0);
+	}
+	@media (min-width: 768px) {
+		.gradient-button {
+			padding: 1rem 8rem;
+			font-size: 1.5rem;
+		}
+	}
+</style>

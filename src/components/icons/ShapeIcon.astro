@@ -1,0 +1,24 @@
+---
+interface Props {
+	rotation?: number;
+	color?: string;
+	transparency?: number;
+	size?: number;
+}
+const { rotation = 0, color = '#4338CA', transparency = 0, size = 200 } = Astro.props;
+const opacityValue = 1 - transparency;
+---
+
+<svg
+	class="shape-icon"
+	width={size}
+	height={size}
+	viewBox="0 0 100 100"
+	xmlns="http://www.w3.org/2000/svg"
+	style={`transform: rotate(${rotation}deg); opacity: ${opacityValue};`}
+>
+	<path
+		d="M15,10 L30,10 C30,50 38,72 50,72 C62,72 70,50 70,10 L85,10 C85,55 80,90 50,90 C20,90 15,55 15,10 Z"
+		fill={color}
+	/>
+</svg>

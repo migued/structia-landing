@@ -1,0 +1,214 @@
+---
+import ItemText from "./ItemText.astro";
+import GradientButton from "./GradientButton.astro";
+import StoriesItems from "./StoriesItems.astro";
+import logoValiant from "../assets/logo-valiant.png";
+
+const heroItems = [
+  '"Házme un anuncio inmobiliario." y te devolvió un <strong>texto genérico</strong>.',
+  "Viste tutoriales de IA en YouTube y durante una semana te sentiste <strong>avanzado</strong>. Pero después… <strong>sigues en el mismo lugar</strong>.",
+  "Ves a otros inmobiliarios <strong>muy por delante</strong> haciendo anuncios, propuestas y usando <strong>de forma estratégica</strong> la IA.",
+  "Te recomendaron <strong>mil plataformas</strong> y <strong>no sabes cómo usar una</strong>.",
+];
+---
+
+<div class="hero container">
+  <div class="hero-content">
+    <img src={logoValiant.src} alt="Valiant" class="hero-logo" />
+    <h2 class="hero-headline">
+      <span class="hero-line">
+        <span class="hero-highlight"> El club de inmobiliarios que sí</span> están
+        usando IA para facturar</span
+      >
+      <span class="hero-subline"
+        >Lo que te va a hacer ganarle a tu competencia<br /><span
+          class="hero-subline hero-price hero-highlight">cuesta $19 al mes</span
+        ></span
+      >
+      <span class="hero-line hero-cta"
+        >Tus competidores verán este video, si tú no lo haces.</span
+      >
+    </h2>
+    <div class="hero-video-placeholder" aria-hidden="true">
+      <span class="hero-video-placeholder-label">Video</span>
+    </div>
+
+    <p class="hero-follow-question">
+      ¿A ti también <strong>te pasa?</strong>
+    </p>
+    <p class="hero-follow-text">
+      Cuando estes dentro<span class="hero-highlight"
+        >no volvera a pasar esto...</span
+      >
+    </p>
+    <ItemText items={heroItems} />
+    <p class="hero-closing-line">
+      Estás <strong>compitiendo con mentalidad 2014</strong> en un mercado 2026.
+    </p>
+    <GradientButton text="QUIERO UNIRME" />
+
+    <div class="hero-stories">
+      <h2 class="hero-stories-headline">
+        <span class="hero-stories-title"
+          >Historias <span class="hero-stories-highlight">reales</span> de inmobiliariosreales.</span
+        >
+        <span class="hero-stories-subtitle"
+          >Así es como Valiant ha cambiado la forma de operar el mercado
+          inmobiliario con IA</span
+        >
+      </h2>
+      <StoriesItems />
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero {
+    position: relative;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo {
+    display: block;
+    height: 1.5rem;
+    width: auto;
+    margin-bottom: 2rem;
+  }
+  .hero-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.3rem;
+  }
+  .hero-headline .hero-line:first-of-type {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+  .hero-headline .hero-subline {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+  .hero-headline .hero-cta {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+  .hero-highlight {
+    background: #a9f3e1;
+    border-radius: 0.35em;
+    padding: 0.1em 0.25em;
+  }
+  .hero-video-placeholder {
+    width: 100%;
+    max-width: 720px;
+    aspect-ratio: 16 / 9;
+    margin-top: 0.75rem;
+    background: #e0e0e0;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-video-placeholder-label {
+    color: #888;
+    font-size: 0.9rem;
+  }
+  .hero-follow-question,
+  .hero-follow-text {
+    margin: 0;
+    text-align: center;
+    line-height: 1.4;
+  }
+  .hero-follow-question {
+    margin-top: 1.25rem;
+    font-size: 1.5rem;
+  }
+  .hero-follow-text {
+    font-size: 1.05rem;
+  }
+  .hero-closing-line {
+    margin: 3rem auto 0.5rem;
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 1.3;
+  }
+  .hero :global(.gradient-button) {
+    margin-top: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .hero-logo {
+      margin-bottom: 3rem;
+    }
+    .hero-headline .hero-line:first-of-type {
+      font-size: 2.5rem;
+      max-width: 30ch;
+    }
+    .hero-headline .hero-subline {
+      font-size: 1.7rem;
+      max-width: 30ch;
+    }
+    .hero-headline .hero-cta {
+      font-size: 1.4rem;
+    }
+    .hero-follow-question {
+      font-size: 2.3rem;
+    }
+    .hero-follow-text {
+      font-size: 1.5rem;
+    }
+    .hero-closing-line {
+      font-size: 2rem;
+      max-width: 30ch;
+    }
+  }
+
+  /* Estilos para las historias dentro del Hero */
+  .hero-stories {
+    width: 100%;
+    margin-top: 3rem;
+  }
+  .hero-stories-headline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.8rem;
+    padding: 0 0.5rem;
+  }
+  .hero-stories-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    color: #1a1a2e;
+  }
+  .hero-stories-highlight {
+    background-color: #a9f3e1;
+    color: #1a1a2e;
+    border-radius: 0.25em;
+    padding: 0.05em 0.25em;
+  }
+  .hero-stories-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.3;
+    max-width: 800px;
+    color: #4b5563;
+    font-weight: 400;
+    display: inline-block;
+  }
+
+  @media (min-width: 768px) {
+    .hero-stories {
+      margin-top: 5rem;
+    }
+    .hero-stories-title {
+      font-size: 2.5rem;
+      max-width: 25ch;
+    }
+    .hero-stories-subtitle {
+      font-size: 1.7rem;
+      max-width: 35ch;
+    }
+  }
+</style>

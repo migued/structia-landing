@@ -1,0 +1,313 @@
+---
+import GradientButton from "./GradientButton.astro";
+import whatsappIcon from "../assets/whatsapp.svg";
+---
+
+<section class="stories-banner">
+  <div class="stories-banner-content">
+    <div class="pricing-card">
+      <span class="pricing-card-badge">Membres-IA</span>
+      <h3 class="pricing-card-title">Valiant MembresIA</h3>
+      <p class="pricing-card-desc">
+        Para inmobiliarias con flujos comerciales activos que necesitan más
+        potencia.
+      </p>
+      <p class="pricing-card-price">
+        <span class="pricing-card-amount">$19</span> USD/mes
+      </p>
+      <GradientButton text="Empezar →" />
+      <div class="pricing-card-features">
+        <p class="pricing-card-features-title">PRINCIPALES FUNCIONES:</p>
+        <ul class="pricing-card-list">
+          <li>2 Clases mensuales</li>
+          <li>Acceso a Valiant tools</li>
+          <li>Acceso a grabaciones</li>
+          <li>Acceso a la comunidad de inmobilIArios</li>
+          <li>Actualización constante</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="banner-support">
+      <h2 class="support-title">
+        ¿Tienes dudas sobre cuál plan es el adecuado para ti?
+      </h2>
+      <p class="support-subtitle">
+        Habla con nuestro equipo y recibe una asesoría personalizada.
+      </p>
+
+      <a href="#" class="support-whatsapp-btn">
+        <div class="whatsapp-btn-text">
+          <span class="whatsapp-btn-line1">HABLAR CON UN</span>
+          <span class="whatsapp-btn-line2">CONSULTOR</span>
+          <span class="whatsapp-btn-line3">Dale clic y hablemos</span>
+        </div>
+        <img src={whatsappIcon.src} alt="WhatsApp" class="whatsapp-btn-icon" />
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .stories-banner {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background-color: #4743da;
+    padding: 4rem 0;
+  }
+
+  .stories-banner-content {
+    color: #f8f8f8;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .stories-banner-content {
+      max-width: 80ch;
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* Pricing Card Styles */
+  .pricing-card {
+    margin-bottom: 2rem;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    padding: 3rem 1.5rem;
+    max-width: 360px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    color: #1a1a2e;
+  }
+
+  .pricing-card-badge {
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 0.4em 1.2em;
+    border-radius: 2em;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pricing-card-title {
+    color: #1a1a2e;
+    font-size: 1.6rem;
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .pricing-card-desc {
+    color: #6b7280;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+    max-width: 26ch;
+  }
+
+  .pricing-card-price {
+    color: #1a1a2e;
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.5rem;
+    font-weight: 600;
+  }
+
+  .pricing-card-amount {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #4642d8;
+  }
+
+  .pricing-card :global(.gradient-button) {
+    margin-top: 1.5rem;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .pricing-card-features {
+    margin-top: 2rem;
+    width: 100%;
+    border-top: 1px solid #eeeeee;
+    padding-top: 1.5rem;
+  }
+
+  .pricing-card-features-title {
+    color: #9ca3af;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.75rem;
+    text-align: left;
+  }
+
+  .pricing-card-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    text-align: left;
+  }
+
+  .pricing-card-list li {
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.4;
+    padding-left: 1.5em;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .pricing-card-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #4642d8;
+    font-weight: 900;
+  }
+
+  @media (min-width: 768px) {
+    .pricing-card {
+      max-width: 500px;
+      padding: 4rem 3rem;
+    }
+
+    .pricing-card-title {
+      font-size: 2rem;
+    }
+
+    .pricing-card-amount {
+      font-size: 4.5rem;
+    }
+  }
+
+  /* Support Section Styles */
+  .banner-support {
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .support-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+    max-width: 25ch;
+    color: white;
+  }
+
+  .support-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin: 0.75rem 0 0;
+    font-weight: 400;
+    max-width: 40ch;
+    color: #e0e0f0;
+  }
+
+  .support-whatsapp-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    padding: 1rem 1rem;
+    border-radius: 1.25rem;
+    border: 3px solid transparent;
+    background-image:
+      linear-gradient(#fff, #fff), linear-gradient(90deg, #4642d8, #a29dff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+      box-shadow 0.2s;
+    max-width: 480px;
+    width: 100%;
+  }
+
+  .support-whatsapp-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .whatsapp-btn-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .whatsapp-btn-line1 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.2;
+  }
+
+  .whatsapp-btn-line2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #4642d8;
+    line-height: 1.1;
+  }
+
+  .whatsapp-btn-line3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    margin-top: 0.25rem;
+  }
+
+  .whatsapp-btn-icon {
+    width: 80px;
+    height: auto;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .support-title {
+      font-size: 2.25rem;
+    }
+
+    .support-subtitle {
+      font-size: 1.6rem;
+    }
+
+    .whatsapp-btn-line1 {
+      font-size: 1.5rem;
+    }
+
+    .whatsapp-btn-line2 {
+      font-size: 2.4rem;
+    }
+
+    .whatsapp-btn-icon {
+      width: 110px;
+    }
+  }
+</style>
