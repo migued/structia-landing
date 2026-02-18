@@ -1,6 +1,7 @@
 ---
 import "@fontsource-variable/archivo";
 import BackgroundShapes from "../components/BackgroundShapes.astro";
+import structiaIcon from "../assets/structia-icon.png";
 ---
 
 <!doctype html>
@@ -8,10 +9,9 @@ import BackgroundShapes from "../components/BackgroundShapes.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href={structiaIcon.src} />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro Basics</title>
+    <title>Estructia</title>
   </head>
   <body>
     <div class="page-root">

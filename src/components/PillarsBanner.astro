@@ -1,0 +1,148 @@
+---
+---
+
+<section class="pillars-banner">
+  <div class="pillars-banner-content">
+    <div class="pillars-grid">
+      <div class="pillar-card">
+        <span class="pillar-badge">Tecnología</span>
+        <h3 class="pillar-title">Tecnología que no existía, así que la creamos.</h3>
+        <span class="pillar-separator" aria-hidden="true"></span>
+        <p class="pillar-text">
+          En el mercado no había una herramienta diseñada para flipperos. Como si tuvieras el equipo de una gran corporación… <strong>sin pagar como una</strong>.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <span class="pillar-badge">Estrategia</span>
+        <h3 class="pillar-title">Porque sin dirección, ningún sistema sirve.</h3>
+        <span class="pillar-separator" aria-hidden="true"></span>
+        <p class="pillar-text">
+          La mayoría intenta escalar comprando software. Nosotros te enseñamos a <strong>pensar como un estratega</strong>, no como un operador.
+        </p>
+      </div>
+
+      <div class="pillar-card">
+        <span class="pillar-badge">Mentalidad</span>
+        <h3 class="pillar-title">La base invisible de cualquier resultado.</h3>
+        <span class="pillar-separator" aria-hidden="true"></span>
+        <p class="pillar-text">
+          Muchas veces la falta de dinero no viene de una mala estrategia, sino de una <strong>mentalidad sin estructura</strong>. Toma decisiones como CEO.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars-banner {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    background: linear-gradient(180deg, #4642d8, #a29dff);
+    padding: 4rem 0;
+  }
+
+  .pillars-banner-content {
+    color: #f8f8f8;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .pillars-banner-content {
+      max-width: 80ch;
+      padding: 0 1.5rem;
+    }
+  }
+
+  /* Pillar Cards */
+  .pillars-grid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .pillar-card {
+    background: linear-gradient(135deg, #95a0d4, #ffffff);
+    border-radius: 1.25rem;
+    padding: 2rem 1.5rem;
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.75rem;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .pillar-badge {
+    background: linear-gradient(180deg, #4642d8, #a29dff);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.35em 1.2em;
+    border-radius: 2em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .pillar-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a2e;
+    margin: 0;
+  }
+
+  .pillar-separator {
+    display: block;
+    width: 60%;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    margin: 0.25rem auto;
+  }
+
+  .pillar-text {
+    font-size: 1rem;
+    line-height: 1.4;
+    color: #374151;
+    margin: 0;
+    max-width: 35ch;
+    font-weight: 400;
+  }
+
+  @media (min-width: 768px) {
+    .pillars-grid {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .pillar-card {
+      flex: 1;
+      max-width: none;
+      padding: 2.5rem 2rem;
+    }
+
+    .pillar-title {
+      font-size: 1.5rem;
+    }
+
+    .pillar-text {
+      font-size: 1.15rem;
+    }
+  }
+</style>
