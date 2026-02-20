@@ -1,0 +1,206 @@
+---
+import GradientButton from "./GradientButton.astro";
+
+const forYouItems = [
+  {
+    number: "01",
+    text: '<strong>Tu negocio de flipping funciona, pero a costa de tu paz mental.</strong> Terminás el día exhausto, con llamadas pendientes y obras por cerrar. Los números van bien, pero tú estás al límite. Te cuesta desconectarte y cualquier descanso termina en revisar mensajes o el CRM.',
+  },
+  {
+    number: "02",
+    text: '<strong>Tu operación crece, pero tus márgenes no.</strong> Tienes más obras, más equipo y más trabajo, pero las utilidades se mantienen igual o incluso bajan. Cada avance parece traer más complicaciones, no más libertad.',
+  },
+  {
+    number: "03",
+    text: '<strong>Buscas claridad y foco sin distracciones.</strong> Quieres salir del ruido, trabajar con precisión y tener una guía práctica. No más teoría ni relleno: necesitas estructura, dirección y resultados medibles.',
+  },
+  {
+    number: "04",
+    text: '<strong>Eres de los que ejecutan, no de los que acumulan ideas.</strong> Cuando algo tiene sentido, lo aplicas. Tomas decisiones, pruebas, corriges y avanzas. Sabes que el crecimiento no viene de escuchar más, sino de implementar mejor.',
+  },
+  {
+    number: "05",
+    text: '<strong>Resuelves y no necesitas que te lleven de la mano.</strong> No esperas que alguien te diga cada paso. Valoras la estrategia, pero asumes tu responsabilidad. Sigues instrucciones, haces preguntas inteligentes y avanzas sin depender de "niñeras".',
+  },
+  {
+    number: "06",
+    text: '<strong>Te desespera la inmediatez sin dirección.</strong> Quieres resultados, pero no a cualquier precio. Sabes que las soluciones rápidas sin estructura solo te devuelven al mismo punto. Prefieres construir algo sólido, no apagar incendios eternamente.',
+  },
+  {
+    number: "07",
+    text: '<strong>Estás listo para dejar de operar y empezar a dirigir.</strong> Sabes que no puedes seguir dependiendo de ti mismo. Quieres una empresa que funcione con sistemas, procesos y personas alineadas, sin que todo gire alrededor tuyo.',
+  },
+  {
+    number: "08",
+    text: '<strong>Quieres trascender el flipping.</strong> Ya dominaste la remodelación y venta. Ahora buscas algo más grande: escalar, diversificar y construir un negocio que no solo facture, sino que trascienda.',
+  },
+];
+
+const notForYouItems = [
+  {
+    number: "01",
+    text: '<strong>Si todavía no tienes un negocio de flipping inmobiliario en marcha.</strong> Necesitas tener ventas reales, una operación activa y algo que mejorar. No es un programa para principiantes ni para quienes apenas están "viendo si se animan".',
+  },
+  {
+    number: "02",
+    text: '<strong>Si necesitas que alguien te persiga para implementar.</strong> No somos "niñeros" queremos trabajar con gente comprometida a convertirse en un empresario real. Aquí no te vamos a estar recordando tus tareas: si no aplicas lo aprendido, el sistema no funcionará por ti.',
+  },
+  {
+    number: "03",
+    text: '<strong>Si esperas que te lo demos todo hecho.</strong> Structia no es una bandeja de plata. Es un universo probado que requiere criterio, acción y mentalidad de liderazgo.',
+  },
+  {
+    number: "04",
+    text: '<strong>Si no estás dispuesto a soltar lo que no funciona.</strong> Este proceso exige tomar decisiones reales: simplificar, delegar, estructurar y cambiar. Si prefieres mantener el caos que conoces antes que enfrentar el orden que te reta, no es para ti.',
+  },
+];
+---
+
+<section class="for-you container">
+  <div class="for-you-content">
+    <h2 class="for-you-headline">¿Es para ti?</h2>
+    <p class="for-you-intro">
+      Es para ti si te identificas con una o más de estas situaciones...
+    </p>
+
+    <div class="for-you-list">
+      {forYouItems.map((item, index) => (
+        <div class:list={["for-you-item", { "for-you-item--highlighted": index % 2 === 0 }]}>
+          <span class="for-you-number">{item.number}</span>
+          <p class="for-you-text" set:html={item.text} />
+        </div>
+      ))}
+    </div>
+
+    <h3 class="not-for-you-headline">No es para ti si…</h3>
+
+    <div class="for-you-list">
+      {notForYouItems.map((item, index) => (
+        <div class:list={["for-you-item", { "for-you-item--highlighted-red": index % 2 === 0 }]}>
+          <span class="for-you-number for-you-number--red">{item.number}</span>
+          <p class="for-you-text" set:html={item.text} />
+        </div>
+      ))}
+    </div>
+
+    <GradientButton text="QUIERO MI AUDITORÍA" />
+  </div>
+</section>
+
+<style>
+  .for-you {
+    width: 100%;
+    padding: 0 0 2rem 0;
+  }
+
+  .for-you-content {
+    width: 100%;
+    max-width: 80ch;
+    margin: 0 auto;
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .for-you-headline {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+
+  .for-you-intro {
+    font-size: 1.2rem;
+    text-align: center;
+    line-height: 1.4;
+    color: #4b5563;
+    max-width: 50ch;
+    margin-bottom: 2rem;
+  }
+
+  .for-you-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+  }
+
+  .for-you-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  .for-you-item--highlighted {
+    background: rgba(169, 243, 225, 0.25);
+  }
+
+  .for-you-item--highlighted-red {
+    background: rgba(243, 169, 169, 0.25);
+  }
+
+  .for-you-number--red {
+    color: #e05252;
+  }
+
+  .for-you-number {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #5c73f0;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .for-you-text {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    margin: 0;
+    color: #1a1a2e;
+  }
+
+  .not-for-you-headline {
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.2;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a2e;
+  }
+
+  .for-you :global(.gradient-button) {
+    margin-top: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .for-you-content {
+      padding: 0 1.5rem;
+    }
+
+    .for-you-headline {
+      font-size: 2.5rem;
+    }
+
+    .for-you-intro {
+      font-size: 1.5rem;
+    }
+
+    .for-you-number {
+      font-size: 3rem;
+    }
+
+    .for-you-text {
+      font-size: 1.3rem;
+    }
+
+    .not-for-you-headline {
+      font-size: 2rem;
+    }
+  }
+</style>
