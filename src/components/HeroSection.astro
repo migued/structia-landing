@@ -7,24 +7,24 @@ import logoStructia from "../assets/structia-logo.png";
 <div class="hero container">
   <div class="hero-content">
     <img src={logoStructia.src} alt="Structia" class="hero-logo" />
-    <h2 class="hero-headline">
-      <span class="hero-line">
-        <strong>Róbate legalmente</strong> la estrategia y el sistema que usan los referentes de flipping para facturar más que <strong>el 99 % del mercado</strong>.</span
-      >
-      <span class="hero-separator" aria-hidden="true"></span>
-      <span class="hero-subline"
-        >Aprende el método que usan los flipperos que <strong>duplicaron su utilidad sin aumentar su carga de trabajo</strong>.</span
-      >
-      <span class="hero-line hero-cta"
-        >Si sientes que ya sabes todo, no veas este video.</span
-      >
-    </h2>
-    <div class="hero-video-placeholder" aria-hidden="true">
-      <span class="hero-video-placeholder-label">Video</span>
+    <div class="video-wrapper">
+      <vturb-smartplayer
+        id="vid-699f264144f8b87400f661f7"
+        style="display: block; margin: 0 auto; width: 100%; "
+      ></vturb-smartplayer>
+      <script is:inline type="text/javascript">
+        var s = document.createElement("script");
+        ((s.src =
+          "https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/699f264144f8b87400f661f7/v4/player.js"),
+          (s.async = !0),
+          document.head.appendChild(s));
+      </script>
     </div>
     <GradientButton text="Agendar Auditoria" />
     <p class="hero-after-button">
-      Las empresas de flipping más <strong>exitosas de México pasaron por aquí.</strong>
+      Las empresas de flipping más <strong
+        >exitosas de México pasaron por aquí.</strong
+      >
     </p>
     <div class="hero-stories">
       <StoriesItems />
@@ -46,55 +46,11 @@ import logoStructia from "../assets/structia-logo.png";
     width: auto;
     margin-bottom: 2rem;
   }
-  .hero-headline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.3rem;
-  }
-  .hero-headline .hero-line:first-of-type {
-    font-size: 1.5rem;
-    line-height: 1.2;
-    max-width: 100%;
-    font-weight: 300;
-  }
-  .hero-headline .hero-subline {
-    font-size: 1.25rem;
-    line-height: 1.3;
-    max-width: 100%;
-    font-weight: 300;
-  }
-  .hero-headline .hero-cta {
-    font-size: 0.9rem;
-    line-height: 1.4;
-  }
-
-  .hero-separator {
-    display: block;
-    width: 80%;
-    max-width: 500px;
-    height: 5px;
-    border-radius: 3px;
-    background: linear-gradient(90deg, #95a0d4, #ffffff);
-    margin: 0 auto;
-  }
-  .hero-video-placeholder {
+  .video-wrapper {
     width: 100%;
     max-width: 720px;
-    aspect-ratio: 16 / 9;
-    margin-top: 0.75rem;
-    background: #e0e0e0;
-    border-radius: 0.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    overflow: hidden;
   }
-  .hero-video-placeholder-label {
-    color: #888;
-    font-size: 0.9rem;
-  }
-
 
   .hero :global(.gradient-button) {
     margin-top: 1.25rem;
@@ -110,17 +66,6 @@ import logoStructia from "../assets/structia-logo.png";
     .hero-logo {
       margin-bottom: 3rem;
     }
-    .hero-headline .hero-line:first-of-type {
-      font-size: 2.5rem;
-      max-width: 45ch;
-    }
-    .hero-headline .hero-subline {
-      font-size: 1.7rem;
-      max-width: 45ch;
-    }
-    .hero-headline .hero-cta {
-      font-size: 1.4rem;
-    }
     .hero-after-button {
       font-size: 1.9rem;
     }
@@ -131,10 +76,8 @@ import logoStructia from "../assets/structia-logo.png";
     width: 100%;
   }
 
-
   @media (min-width: 768px) {
     .hero-stories {
     }
-
   }
 </style>
