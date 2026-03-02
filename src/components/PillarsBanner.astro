@@ -3,6 +3,10 @@
 
 <section class="pillars-banner">
   <div class="pillars-banner-content">
+    <h2 class="pillars-section-title">
+      <span class="pillars-title-line">Los pilares del</span>
+      <span class="pillars-title-line pillars-title-accent">Universo Structia</span>
+    </h2>
     <div class="pillars-grid">
       <div class="pillar-card">
         <span class="pillar-badge">Tecnología</span>
@@ -61,6 +65,44 @@
     .pillars-banner-content {
       max-width: 80ch;
       padding: 0 1.5rem;
+    }
+  }
+
+  .pillars-section-title {
+    margin: 0 0 2.5rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    font-weight: 300;
+    color: #ffffff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .pillars-title-line {
+    display: block;
+    font-size: 1.75rem;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+
+  .pillars-title-accent {
+    font-weight: 800;
+    font-size: 2rem;
+    letter-spacing: 0.03em;
+  }
+
+  @media (min-width: 768px) {
+    .pillars-section-title {
+      margin-bottom: 3rem;
+    }
+
+    .pillars-title-line {
+      font-size: 2.25rem;
+    }
+
+    .pillars-title-accent {
+      font-size: 2.75rem;
     }
   }
 
