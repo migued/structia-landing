@@ -1,25 +1,31 @@
 ---
 import GradientButton from "./GradientButton.astro";
+import structiaAlonso from "../assets/structia-alonso.png";
+import structiaEduardo from "../assets/structia-eduardo.png";
+import structiaMiguel from "../assets/structia-miguel.png";
 import whatsappIcon from "../assets/whatsapp.svg";
 
 const consultants = [
   {
     firstName: "Alonso",
     lastName: "Arteaga",
+    photo: structiaAlonso.src,
     description:
-      '<strong>Inversionista inmobiliario, Fundador de Structia, Ubicantón y Co Fundador de Valiant.</strong> Ha formado a más de 6,000 empresarios en toda Latinoamérica</strong>. Y realizado mas de 500 operaciones de flipping inmobiliario</strong>.',
+      "<strong>Inversionista inmobiliario, Fundador de Structia, Ubicantón y Co Fundador de Valiant.</strong> Ha formado a más de 6,000 empresarios en toda Latinoamérica</strong>. Y realizado mas de 500 operaciones de flipping inmobiliario</strong>.",
   },
   {
     firstName: "Eduardo",
     lastName: "Morales",
+    photo: structiaEduardo.src,
     description:
-      '<strong>Estratega tecnológico. Fundador de Valiant, Mi Casita Monterrey y Co Fundador de Structia.</strong> Ha sistematizado a múltiples empresas transnacionales y realizado más de 100 operaciones de flipping inmobiliario.',
+      "<strong>Estratega tecnológico. Fundador de Valiant, Mi Casita Monterrey y Co Fundador de Structia.</strong> Ha sistematizado a múltiples empresas transnacionales y realizado más de 100 operaciones de flipping inmobiliario.",
   },
   {
     firstName: "Miguel",
     lastName: "Delgado",
+    photo: structiaMiguel.src,
     description:
-      '<strong>Especialista en Inteligencia Artificial y programador.</strong> Actualmente radicado en China, se mantiene a la vanguardia de las tecnologías emergentes y es considerado una de las <strong>mentes más avanzadas en IA inmobiliaria</strong>.',
+      "<strong>Especialista en Inteligencia Artificial y cofundador de Valiant.</strong> Actualmente radicado en China, se mantiene a la vanguardia de las tecnologías emergentes y es considerado una de las <strong>mentes más avanzadas en IA inmobiliaria</strong>.",
   },
 ];
 ---
@@ -29,30 +35,44 @@ const consultants = [
     <h2 class="consultants-headline">Tus consultores</h2>
 
     <div class="consultants-grid">
-      {consultants.map((person) => (
-        <div class="consultant-card">
-          <h3 class="consultant-name">
-            <strong>{person.firstName}</strong> {person.lastName}
-          </h3>
-          <div class="consultant-photo">
-            <span class="consultant-photo-placeholder">Foto</span>
+      {
+        consultants.map((person) => (
+          <div class="consultant-card">
+            <h3 class="consultant-name">
+              <strong>{person.firstName}</strong> {person.lastName}
+            </h3>
+            <div class="consultant-photo">
+              {person.photo ? (
+                <img
+                  src={person.photo}
+                  alt={`${person.firstName} ${person.lastName}`}
+                  class="consultant-img"
+                />
+              ) : (
+                <span class="consultant-photo-placeholder">Foto</span>
+              )}
+            </div>
+            <p class="consultant-desc" set:html={person.description} />
           </div>
-          <p class="consultant-desc" set:html={person.description} />
-        </div>
-      ))}
+        ))
+      }
     </div>
 
     <GradientButton text="QUIERO MI AUDITORÍA" />
 
     <div class="audit-cta">
       <p class="audit-cta-top">
-        Aplica a una llamada de auditoría y descubre si tu empresa está lista para escalar con Structia.
+        Aplica a una llamada de auditoría y descubre si tu empresa está lista
+        para escalar con Structia.
       </p>
       <span class="audit-separator" aria-hidden="true"></span>
       <p class="audit-cta-bottom">
-        No todas las empresas califican. Si tu modelo cumple con los requisitos, uno de nuestros consultores te mostrará cómo implementar la estructura que usan las firmas de flipping más rentables del país.
+        No todas las empresas califican. Si tu modelo cumple con los requisitos,
+        uno de nuestros consultores te mostrará cómo implementar la estructura
+        que usan las firmas de flipping más rentables del país.
       </p>
 
+      <!-- Botón WhatsApp oculto temporalmente
       <a href="#" class="support-whatsapp-btn">
         <div class="whatsapp-btn-text">
           <span class="whatsapp-btn-line1">HABLAR CON UN</span>
@@ -61,6 +81,7 @@ const consultants = [
         </div>
         <img src={whatsappIcon.src} alt="WhatsApp" class="whatsapp-btn-icon" />
       </a>
+      -->
     </div>
   </div>
 </section>
@@ -109,7 +130,7 @@ const consultants = [
     text-align: center;
     max-width: 300px;
     width: 100%;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .consultant-name {
@@ -118,6 +139,7 @@ const consultants = [
     color: #1a1a2e;
     margin: 0;
     line-height: 1.2;
+    margin-bottom: 0.5rem;
   }
 
   .consultant-name strong {
@@ -125,17 +147,45 @@ const consultants = [
   }
 
   .consultant-photo {
+    position: relative;
     width: 100%;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+  }
+
+  .consultant-photo::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 85%;
     background: linear-gradient(180deg, #4642d8, #a29dff);
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    border-radius: 1.5rem;
+    z-index: 0;
+  }
+
+  .consultant-img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120%; /* Proporción para que se salga por los lados */
+    height: 130%; /* Proporción para que se salga por arriba */
+    object-fit: contain;
+    object-position: bottom;
+    z-index: 1;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+    pointer-events: none;
   }
 
   .consultant-photo-placeholder {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    z-index: 1;
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.9rem;
   }

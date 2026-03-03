@@ -21,6 +21,10 @@ import logoStructia from "../assets/structia-logo.png";
       </script>
     </div>
     <GradientButton text="Agendar Auditoria" />
+    <p class="hero-quote">
+      <strong>Hay decisiones que no se toman por entusiasmo.</strong> Se toman cuando la vida se cansa de seguir igual.
+    </p>
+    <span class="hero-quote-separator" aria-hidden="true"></span>
     <p class="hero-after-button">
       Las empresas de flipping más <strong
         >exitosas de México pasaron por aquí.</strong
@@ -48,12 +52,31 @@ import logoStructia from "../assets/structia-logo.png";
   }
   .video-wrapper {
     width: 100%;
-    max-width: 720px;
+    max-width: 900px;
     overflow: hidden;
   }
 
   .hero :global(.gradient-button) {
     margin-top: 1.25rem;
+  }
+  .hero-quote {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #4b5563;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-quote-separator {
+    display: block;
+    width: 70%;
+    max-width: 400px;
+    height: 4px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    margin: 1.25rem auto 0;
   }
   .hero-after-button {
     margin-top: 2rem;
@@ -65,6 +88,9 @@ import logoStructia from "../assets/structia-logo.png";
   @media (min-width: 768px) {
     .hero-logo {
       margin-bottom: 3rem;
+    }
+    .hero-quote {
+      font-size: 1.3rem;
     }
     .hero-after-button {
       font-size: 1.9rem;
