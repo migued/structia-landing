@@ -1,26 +1,28 @@
 ---
-import GradientButton from "./GradientButton.astro";
 import StoriesItems from "./StoriesItems.astro";
 import logoStructia from "../assets/structia-logo.png";
+
+interface Props {
+  videoEmbed?: string;
+}
+
+const { videoEmbed } = Astro.props;
+
+const defaultVideo = `<vturb-smartplayer id="vid-699f264144f8b87400f661f7" style="display: block; margin: 0 auto; width: 100%;"></vturb-smartplayer>
+<script type="text/javascript">
+  var s = document.createElement("script");
+  s.src = "https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/699f264144f8b87400f661f7/v4/player.js";
+  s.async = true;
+  document.head.appendChild(s);
+</script>`;
+
+const video = videoEmbed ?? defaultVideo;
 ---
 
 <div class="hero container">
   <div class="hero-content">
     <img src={logoStructia.src} alt="Structia" class="hero-logo" />
-    <div class="video-wrapper">
-      <vturb-smartplayer
-        id="vid-699f264144f8b87400f661f7"
-        style="display: block; margin: 0 auto; width: 100%; "
-      ></vturb-smartplayer>
-      <script is:inline type="text/javascript">
-        var s = document.createElement("script");
-        ((s.src =
-          "https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/699f264144f8b87400f661f7/v4/player.js"),
-          (s.async = !0),
-          document.head.appendChild(s));
-      </script>
-    </div>
-    <GradientButton text="Agendar Auditoria" />
+    <div id="video" class="video-wrapper" set:html={video} />
     <p class="hero-quote">
       <strong>Hay decisiones que no se toman por entusiasmo.</strong> Se toman cuando la vida se cansa de seguir igual.
     </p>
@@ -52,7 +54,7 @@ import logoStructia from "../assets/structia-logo.png";
   }
   .video-wrapper {
     width: 100%;
-    max-width: 900px;
+    max-width: 800px;
     overflow: hidden;
   }
 
