@@ -1,0 +1,53 @@
+---
+import logoStructia from "../assets/structia-logo.png";
+
+interface Props {
+  videoEmbed?: string;
+}
+
+const { videoEmbed } = Astro.props;
+
+const defaultVideo = `<vturb-smartplayer id="vid-699f264144f8b87400f661f7" style="display: block; margin: 0 auto; width: 100%;"></vturb-smartplayer>
+<script type="text/javascript">
+  var s = document.createElement("script");
+  s.src = "https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/699f264144f8b87400f661f7/v4/player.js";
+  s.async = true;
+  document.head.appendChild(s);
+</script>`;
+
+const video = videoEmbed ?? defaultVideo;
+---
+
+<div class="hero container" style="padding-bottom: 0;">
+  <div class="hero-content">
+    <img src={logoStructia.src} alt="Structia" class="hero-logo" />
+    <div id="video" class="video-wrapper" set:html={video} />
+  </div>
+</div>
+
+<style>
+  .hero {
+    position: relative;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+  .hero-logo {
+    display: block;
+    height: 1.5rem;
+    width: auto;
+    margin-bottom: 2rem;
+  }
+  .video-wrapper {
+    width: 100%;
+    max-width: 800px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .hero-logo {
+      margin-bottom: 3rem;
+    }
+  }
+</style>

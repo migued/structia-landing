@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import HeroSection from "../components/HeroSection.astro";
+import HeroVsl from "../components/HeroVsl.astro";
+import HeroContent from "../components/HeroContent.astro";
 import ForYouSection from "../components/ForYouSection.astro";
 import ConsultantsSection from "../components/ConsultantsSection.astro";
 import PillarsBanner from "../components/PillarsBanner.astro";
@@ -15,8 +16,35 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
 ---
 
 <Layout>
-  <HeroSection videoEmbed={igVideo} />
-  <ForYouSection />
-  <PillarsBanner />
-  <ConsultantsSection />
+  <HeroVsl videoEmbed={igVideo} />
+  
+  <div id="delayed-content" style="display: none;">
+    <HeroContent />
+    <ForYouSection />
+    <PillarsBanner />
+    <ConsultantsSection />
+  </div>
+
+  <style>
+    /* Ocultar inicialmente el footer en esta página y mostrarlo con la clase show-footer */
+    :global(.site-footer) {
+      display: none !important;
+    }
+    :global(.show-footer .site-footer) {
+      display: block !important;
+    }
+    /* Dar espacio extra en la parte inferior cuando las secciones secundarias están ocultas */
+    :global(body:not(.show-footer) .layout-container) {
+      padding-bottom: 6rem;
+    }
+  </style>
+
+  <script is:inline>
+    // Mostrar el contenido después de 8:40 minutos (520000 milisegundos)
+    setTimeout(() => {
+      const content = document.getElementById('delayed-content');
+      if (content) content.style.display = 'block';
+      document.body.classList.add('show-footer');
+    }, 520000); 
+  </script>
 </Layout>
