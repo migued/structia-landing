@@ -26,12 +26,9 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
   </div>
 
   <style>
-    /* Ocultar inicialmente el footer en esta página y mostrarlo con la clase show-footer */
+    /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
     :global(.site-footer) {
       display: none !important;
-    }
-    :global(.show-footer .site-footer) {
-      display: block !important;
     }
     /* Dar espacio extra en la parte inferior cuando las secciones secundarias están ocultas */
     :global(body:not(.show-footer) .layout-container) {
@@ -40,11 +37,34 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
   </style>
 
   <script is:inline>
-    // Mostrar el contenido después de 8:40 minutos (520000 milisegundos)
-    setTimeout(() => {
-      const content = document.getElementById('delayed-content');
-      if (content) content.style.display = 'block';
-      document.body.classList.add('show-footer');
-    }, 520000); 
+    // Parámetros VTurb: 10:20 minutos = 620 segundos
+    var delaySeconds = 620; 
+    var player = document.querySelector("vturb-smartplayer"); 
+    
+    if (player) {
+      player.addEventListener("player:ready", function() { 
+        player.displayHiddenElements(delaySeconds, ["#delayed-content", ".site-footer"], { persist: true }); 
+      });
+    }
+
+    // Observer para remover el padding inferior extra cuando VTurb muestre las secciones
+    const content = document.getElementById('delayed-content');
+    if (content) {
+      // Verificamos si, por caché, VTurb ya lo mostró de inmediato
+      if (content.style.display !== 'none' && content.style.display !== '') {
+        document.body.classList.add('show-footer');
+      } else {
+        const observer = new MutationObserver((mutations) => {
+          for (const mutation of mutations) {
+            if (mutation.target.style.display !== 'none') {
+              document.body.classList.add('show-footer');
+              observer.disconnect();
+              break;
+            }
+          }
+        });
+        observer.observe(content, { attributes: true, attributeFilter: ['style'] });
+      }
+    }
   </script>
 </Layout>
