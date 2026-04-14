@@ -18,7 +18,7 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
 <Layout>
   <HeroVsl videoEmbed={igVideo} />
   
-  <div id="delayed-content" style="display: none;">
+  <div id="delayed-content">
     <HeroContent />
     <ForYouSection />
     <PillarsBanner />
@@ -27,15 +27,17 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
 
   <style>
     /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
+    /* 
     :global(.site-footer) {
       display: none !important;
     }
-    /* Dar espacio extra en la parte inferior cuando las secciones secundarias están ocultas */
     :global(body:not(.show-footer) .layout-container) {
       padding-bottom: 6rem;
     }
+    */
   </style>
 
+  <!-- Script de delay oculto temporalmente
   <script is:inline>
     // Parámetros VTurb: 10:20 minutos = 620 segundos
     var delaySeconds = 620; 
@@ -67,4 +69,5 @@ const igVideo = `<vturb-smartplayer id="vid-69b04d6577c128653a76941a" style="dis
       }
     }
   </script>
+  -->
 </Layout>
