@@ -27,7 +27,7 @@ const fbVideo = `<vturb-smartplayer id="vid-69b04c61a61fe7c3c1e55564" style="dis
 
   <HeroVsl videoEmbed={fbVideo} />
 
-  <div id="delayed-content" style="display: none;">
+  <div id="delayed-content">
     <HeroContent />
     <ForYouSection />
     <PillarsBanner />
@@ -36,15 +36,17 @@ const fbVideo = `<vturb-smartplayer id="vid-69b04c61a61fe7c3c1e55564" style="dis
 
   <style>
     /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
+    /* 
     :global(.site-footer) {
       display: none !important;
     }
-    /* Dar espacio extra en la parte inferior cuando las secciones secundarias están ocultas */
     :global(body:not(.show-footer) .layout-container) {
       padding-bottom: 6rem;
     }
+    */
   </style>
 
+  <!-- Script de delay oculto temporalmente
   <script is:inline>
     // Parámetros VTurb: 10:20 minutos = 620 segundos
     var delaySeconds = 620;
@@ -83,4 +85,5 @@ const fbVideo = `<vturb-smartplayer id="vid-69b04c61a61fe7c3c1e55564" style="dis
       }
     }
   </script>
+  -->
 </Layout>
