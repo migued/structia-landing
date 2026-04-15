@@ -6,20 +6,10 @@ import ForYouSection from "../components/ForYouSection.astro";
 import ConsultantsSection from "../components/ConsultantsSection.astro";
 import PillarsBanner from "../components/PillarsBanner.astro";
 
-const fbVideo = `<vturb-smartplayer id="vid-69dec797ed1ac5750566fdde" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/69dec797ed1ac5750566fdde/v4/player.js", s.async=!0,document.head.appendChild(s); </script>`;
+const fbVideo = `<vturb-smartplayer id="vid-69dee867ed1ac5750567530c" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/69dee867ed1ac5750567530c/v4/player.js", s.async=!0,document.head.appendChild(s); </script>`;
 ---
 
 <Layout>
-  <script slot="head" is:inline>
-    (function () {
-      var shouldRedirectToVariant = Math.random() < 0.5;
-      if (!shouldRedirectToVariant) return;
-
-      var targetPath = "/fb-b" + window.location.search + window.location.hash;
-      window.location.replace(targetPath);
-    })();
-  </script>
-
   <script slot="head" is:inline>
     window.pixelId = "69cc7f542240ec0e4d934501";
     var a = document.createElement("script");
@@ -40,20 +30,20 @@ const fbVideo = `<vturb-smartplayer id="vid-69dec797ed1ac5750566fdde" style="dis
 
   <style>
     /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
-    /* 
+    :global(#delayed-content) {
+      display: none;
+    }
     :global(.site-footer) {
       display: none !important;
     }
     :global(body:not(.show-footer) .layout-container) {
       padding-bottom: 6rem;
     }
-    */
   </style>
 
-  <!-- Script de delay oculto temporalmente
   <script is:inline>
-    // Parámetros VTurb: 10:20 minutos = 620 segundos
-    var delaySeconds = 620;
+    // Parámetros VTurb: 07:55 minutos = 475 segundos
+    var delaySeconds = 475;
     var player = document.querySelector("vturb-smartplayer");
 
     if (player) {
@@ -89,5 +79,4 @@ const fbVideo = `<vturb-smartplayer id="vid-69dec797ed1ac5750566fdde" style="dis
       }
     }
   </script>
-  -->
 </Layout>
