@@ -6,7 +6,7 @@ import ForYouSection from "../components/ForYouSection.astro";
 import ConsultantsSection from "../components/ConsultantsSection.astro";
 import PillarsBanner from "../components/PillarsBanner.astro";
 
-const fbVideo = `<vturb-smartplayer id="ab-69e8ffbf9813ca264c26ad80" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/ab-test/69e8ffbf9813ca264c26ad80/player.js", s.async=!0,document.head.appendChild(s); </script>`;
+const fbVideo = `<vturb-smartplayer id="vid-69e8e5d53a084e4af12b6da9" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/69e8e5d53a084e4af12b6da9/v4/player.js", s.async=!0,document.head.appendChild(s); <\/script>`;
 ---
 
 <Layout>
@@ -33,7 +33,7 @@ const fbVideo = `<vturb-smartplayer id="ab-69e8ffbf9813ca264c26ad80" style="disp
 
   <HeroVsl videoEmbed={fbVideo} />
 
-  <div id="delayed-content">
+  <div id="delayed-content" class="hide">
     <HeroContent />
     <ForYouSection />
     <PillarsBanner />
@@ -42,7 +42,7 @@ const fbVideo = `<vturb-smartplayer id="ab-69e8ffbf9813ca264c26ad80" style="disp
 
   <style>
     /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
-    :global(#delayed-content) {
+    .hide {
       display: none;
     }
     :global(.site-footer) {
@@ -54,37 +54,23 @@ const fbVideo = `<vturb-smartplayer id="ab-69e8ffbf9813ca264c26ad80" style="disp
   </style>
 
   <script is:inline>
-    // Configuración de Delay por ID de video (VTurb A/B Test)
-    var listPitch = {
-      "69e8e93805c3ed4453dc4bfd": { delay: 475 },
-      "69e8e83371026a90eafe7bb1": { delay: 475 },
-    };
-
-    var alreadyInitialized = false;
-
+    // Configuración de Delay (en segundos)
+    const VIDEO_DELAY = 475; // 7:55 minutos
+    
     document.addEventListener("player:ready", function (event) {
-      if (alreadyInitialized) return;
-
-      var detail = event.detail || {};
-      var config = detail.config || {};
-      var player = detail.player || document.querySelector("vturb-smartplayer");
-      var playerId = config.id;
-      var pitchConfig = listPitch[playerId];
-
-      if (!playerId || !pitchConfig) return;
-
-      alreadyInitialized = true;
-
-      // Sincronizar elementos ocultos con el delay del video actual
-      player.displayHiddenElements(
-        pitchConfig.delay,
-        ["#delayed-content", ".site-footer"],
-        { persist: true },
-      );
+      const player = event.detail.player || document.querySelector("vturb-smartplayer");
+      
+      if (player) {
+        player.displayHiddenElements(
+          VIDEO_DELAY,
+          [".hide", ".site-footer"],
+          { persist: true }
+        );
+      }
     });
 
     // Observer para remover el padding inferior extra cuando VTurb muestre las secciones
-    const content = document.getElementById("delayed-content");
+    const content = document.querySelector(".hide");
     if (content) {
       // Verificamos si, por caché, VTurb ya lo mostró de inmediato
       if (content.style.display !== "none" && content.style.display !== "") {
