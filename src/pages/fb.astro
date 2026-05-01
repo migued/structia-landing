@@ -41,9 +41,9 @@ const fbVideo = `<vturb-smartplayer id="vid-69e8e5d53a084e4af12b6da9" style="dis
   </div>
 
   <style>
-    /* Ocultar inicialmente en esta página y mostrarlo cuando corresponda */
+    /* Ocultar permanentemente las secciones solicitadas */
     .hide {
-      display: none;
+      display: none !important;
     }
     :global(.site-footer) {
       display: none !important;
@@ -53,6 +53,7 @@ const fbVideo = `<vturb-smartplayer id="vid-69e8e5d53a084e4af12b6da9" style="dis
     }
   </style>
 
+  <!-- Script de delay desactivado permanentemente
   <script is:inline>
     // Configuración de Delay (en segundos)
     const VIDEO_DELAY = 475; // 7:55 minutos
@@ -92,4 +93,5 @@ const fbVideo = `<vturb-smartplayer id="vid-69e8e5d53a084e4af12b6da9" style="dis
       }
     }
   </script>
+  -->
 </Layout>
