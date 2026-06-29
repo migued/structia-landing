@@ -60,7 +60,7 @@ const notForYouItems = [
   <div class="for-you-content">
     <div class="for-you-columns">
       <div class="for-you-col">
-        <div class="for-you-col-head">
+        <div class="for-you-col-head" data-reveal>
           <h2 class="for-you-headline">¿Es para ti?</h2>
           <p class="for-you-intro">
             Es para ti si te identificas con una o más de estas situaciones...
@@ -83,7 +83,7 @@ const notForYouItems = [
       </div>
 
       <div class="for-you-col">
-        <div class="for-you-col-head">
+        <div class="for-you-col-head" data-reveal>
           <h3 class="not-for-you-headline">No es para ti si…</h3>
         </div>
 
@@ -112,7 +112,7 @@ const notForYouItems = [
     position: relative;
     width: 100vw;
     margin-left: calc(50% - 50vw); /* full-bleed: rompe el límite de 1000px */
-    padding: 2.5rem 0 2rem;
+    padding: 3rem 0;
   }
 
   .for-you-content {
@@ -305,6 +305,9 @@ const notForYouItems = [
   }
 
   @media (min-width: 768px) {
+    .for-you {
+      padding: 4rem 0;
+    }
     .for-you-content {
       padding: 0 1.5rem;
       max-width: 1150px; /* container principal más ancho en desktop */
@@ -400,15 +403,21 @@ const notForYouItems = [
       });
     }
 
-    function update() {
+    // valor "current" suavizado por lista (se acerca al objetivo con lerp)
+    const smooth = setups.map(() => ({ current: 0 }));
+
+    function apply(snap: boolean) {
       const anchor = window.innerHeight * 0.55;
-      setups.forEach(({ rail, fill, items }) => {
+      setups.forEach(({ rail, fill, items }, i) => {
         const r = rail.getBoundingClientRect();
         if (!r.height) return;
-        let p = (anchor - r.top) / r.height;
-        p = Math.max(0, Math.min(1, p));
-        fill.style.height = p * 100 + "%";
-        const fillBottomY = r.top + r.height * p;
+        let target = (anchor - r.top) / r.height;
+        target = Math.max(0, Math.min(1, target));
+        const s = smooth[i];
+        // lerp: la barra "sigue" al scroll de forma suave
+        s.current = snap ? target : s.current + (target - s.current) * 0.12;
+        fill.style.height = s.current * 100 + "%";
+        const fillBottomY = r.top + r.height * s.current;
         items.forEach((item) => {
           const ir = item.getBoundingClientRect();
           item.classList.toggle(
@@ -428,31 +437,19 @@ const notForYouItems = [
       return;
     }
 
-    let ticking = false;
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        update();
-        ticking = false;
-      });
-    }
-
     layout();
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", () => {
-      layout();
-      update();
-    });
-    window.addEventListener("load", () => {
-      layout();
-      update();
-    });
-    setTimeout(() => {
-      layout();
-      update();
-    }, 400);
+    apply(true); // estado inicial sin suavizado
+
+    // Loop continuo: cada frame la barra se acerca suavemente al objetivo
+    function loop() {
+      apply(false);
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
+
+    window.addEventListener("resize", layout);
+    window.addEventListener("load", layout);
+    setTimeout(layout, 400);
   }
 
   initForYouTimeline();

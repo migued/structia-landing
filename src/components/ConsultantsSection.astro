@@ -35,12 +35,12 @@ const consultants = [
 
 <section class="consultants container">
   <div class="consultants-content">
-    <h2 class="consultants-headline">Tus consultores</h2>
+    <h2 class="consultants-headline" data-reveal>Tus consultores</h2>
 
     <div class="consultants-grid">
       {
         consultants.map((person) => (
-          <article class="consultant-card">
+          <article class="consultant-card" data-reveal>
             <div class="consultant-photo">
               <span class="consultant-badge">Structia</span>
               <img
@@ -62,7 +62,7 @@ const consultants = [
       }
     </div>
 
-    <div class="audit-cta">
+    <div class="audit-cta" data-reveal>
       <p class="audit-cta-top">
         Aplica a una llamada de auditoría y descubre si tu empresa está lista
         para <span class="audit-accent">escalar con Structia.</span>
@@ -94,7 +94,7 @@ const consultants = [
 <style>
   .consultants {
     width: 100%;
-    padding: 2rem 0;
+    padding: 3rem 0;
   }
 
   .consultants-content {
@@ -226,6 +226,9 @@ const consultants = [
   }
 
   @media (min-width: 768px) {
+    .consultants {
+      padding: 4rem 0;
+    }
     .consultants-content {
       padding: 0 1.5rem;
     }
@@ -265,7 +268,7 @@ const consultants = [
   .audit-cta {
     margin-top: 3.5rem;
     width: 100%;
-    max-width: 720px;
+    max-width: 880px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -275,13 +278,13 @@ const consultants = [
 
   .audit-cta-top {
     margin: 0;
-    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-size: clamp(1.25rem, 2.8vw, 1.8rem);
     font-weight: 800;
     line-height: 1.2;
     letter-spacing: -0.01em;
     color: #1a1a2e;
     width: 100%;
-    max-width: 36ch;
+    max-width: 52ch;
     text-wrap: balance;
   }
   /* Frase de acento en itálica con degradado (igual que el hero) */

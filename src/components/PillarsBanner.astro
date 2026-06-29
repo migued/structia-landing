@@ -24,7 +24,7 @@ const pillars = [
 <section class="pillars">
   <div class="pillars-inner">
     <!-- Nodo central -->
-    <div class="pillars-node">
+    <div class="pillars-node" data-reveal>
       <div class="pillars-node__icon">
         <svg
           viewBox="0 0 24 24"
@@ -67,8 +67,12 @@ const pillars = [
     <!-- Tarjetas -->
     <div class="pillars-grid">
       {
-        pillars.map((p) => (
-          <article class="pillar-card" style={`--accent: ${p.accent}`}>
+        pillars.map((p, i) => (
+          <article
+            class="pillar-card"
+            data-reveal
+            style={`--accent: ${p.accent}; --reveal-delay: ${i * 120}ms`}
+          >
             <span class="pillar-badge">{p.badge}</span>
             <h3 class="pillar-title">{p.title}</h3>
             <p class="pillar-text" set:html={p.text} />
@@ -85,7 +89,7 @@ const pillars = [
     position: relative;
     left: 50%;
     margin-left: -50vw;
-    padding: 4rem 1rem 4.5rem;
+    padding: 3rem 1rem;
     color: #1a1a2e;
     overflow: hidden;
   }
@@ -289,7 +293,7 @@ const pillars = [
 
   @media (min-width: 768px) {
     .pillars {
-      padding: 5rem 1.5rem 5.5rem;
+      padding: 4rem 1.5rem;
     }
     .pillars-node {
       padding: 2.25rem 2rem 2rem;
