@@ -73,8 +73,10 @@ const notForYouItems = [
           >
           {forYouItems.map((item) => (
             <div class="for-you-item">
-              <span class="for-you-number">{item.number}</span>
-              <p class="for-you-text" set:html={item.text} />
+              <div class="for-you-card">
+                <span class="for-you-number">{item.number}</span>
+                <p class="for-you-text" set:html={item.text} />
+              </div>
             </div>
           ))}
         </div>
@@ -91,8 +93,10 @@ const notForYouItems = [
           >
           {notForYouItems.map((item) => (
             <div class="for-you-item">
-              <span class="for-you-number">{item.number}</span>
-              <p class="for-you-text" set:html={item.text} />
+              <div class="for-you-card">
+                <span class="for-you-number">{item.number}</span>
+                <p class="for-you-text" set:html={item.text} />
+              </div>
             </div>
           ))}
         </div>
@@ -188,11 +192,39 @@ const notForYouItems = [
   .for-you-item {
     position: relative;
     padding-left: 2.75rem; /* espacio para el riel del timeline */
-    padding-bottom: 2.25rem;
+    padding-bottom: 1.5rem;
     text-align: left;
   }
   .for-you-item:last-child {
     padding-bottom: 0;
+  }
+
+  /* Card de cada item: oscura por defecto, se ilumina (borde + glow) cuando
+     el scroll la alcanza — integra la línea interactiva con el resalte. */
+  .for-you-card {
+    border-radius: 1rem;
+    padding: 1.25rem 1.4rem;
+    background: rgba(110, 112, 135, 0.1);
+    border: 1px solid rgba(70, 66, 216, 0.12);
+    box-shadow: 0 6px 18px rgba(26, 26, 46, 0.05);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
+  }
+  .for-you-item.is-active .for-you-card {
+    background: rgba(70, 66, 216, 0.08);
+    border-color: rgba(70, 66, 216, 0.4);
+    box-shadow:
+      0 8px 22px rgba(26, 26, 46, 0.08),
+      0 0 20px rgba(70, 66, 216, 0.12);
+  }
+  .for-you-list--muted .for-you-item.is-active .for-you-card {
+    background: rgba(150, 155, 165, 0.12);
+    border-color: rgba(150, 155, 165, 0.45);
+    box-shadow: 0 8px 22px rgba(26, 26, 46, 0.07);
   }
 
   /* Punto / marcador: tenue por defecto, se "enciende" al pasar el scroll */
