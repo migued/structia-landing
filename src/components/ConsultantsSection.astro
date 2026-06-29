@@ -1,15 +1,15 @@
 ---
+import { Image } from "astro:assets";
 import GradientButton from "./GradientButton.astro";
 import structiaAlonso from "../assets/structia-alonso.png";
 import structiaEduardo from "../assets/structia-eduardo.png";
 import structiaMiguel from "../assets/structia-miguel.png";
-import whatsappIcon from "../assets/whatsapp.svg";
 
 const consultants = [
   {
     firstName: "Alonso",
     lastName: "Arteaga",
-    photo: structiaAlonso.src,
+    photo: structiaAlonso,
     role: "Inversionista inmobiliario, Fundador de Structia, Ubicantón y Co Fundador de Valiant.",
     description:
       "Ha formado a más de 6,000 empresarios en toda Latinoamérica. Y realizado mas de 500 operaciones de flipping inmobiliario.",
@@ -17,7 +17,7 @@ const consultants = [
   {
     firstName: "Eduardo",
     lastName: "Morales",
-    photo: structiaEduardo.src,
+    photo: structiaEduardo,
     role: "Estratega tecnológico. Fundador de Valiant, Mi Casita Monterrey y Co Fundador de Structia.",
     description:
       "Ha sistematizado a múltiples empresas transnacionales y realizado más de 100 operaciones de flipping inmobiliario.",
@@ -25,7 +25,7 @@ const consultants = [
   {
     firstName: "Miguel",
     lastName: "Delgado",
-    photo: structiaMiguel.src,
+    photo: structiaMiguel,
     role: "Especialista en Inteligencia Artificial y cofundador de Valiant.",
     description:
       "Actualmente radicado en China, se mantiene a la vanguardia de las tecnologías emergentes y es considerado una de las <strong>mentes más avanzadas en IA inmobiliaria</strong>.",
@@ -43,9 +43,12 @@ const consultants = [
           <article class="consultant-card" data-reveal>
             <div class="consultant-photo">
               <span class="consultant-badge">Structia</span>
-              <img
+              <Image
                 src={person.photo}
                 alt={`${person.firstName} ${person.lastName}`}
+                width={680}
+                format="webp"
+                quality={78}
                 class="consultant-img"
                 loading="lazy"
                 decoding="async"
@@ -78,17 +81,6 @@ const consultants = [
       </p>
 
       <GradientButton text="QUIERO MI AUDITORÍA" href="#video" />
-
-      <!-- Botón WhatsApp oculto temporalmente
-      <a href="#" class="support-whatsapp-btn">
-        <div class="whatsapp-btn-text">
-          <span class="whatsapp-btn-line1">HABLAR CON UN</span>
-          <span class="whatsapp-btn-line2">CONSULTOR</span>
-          <span class="whatsapp-btn-line3">Dale clic y hablemos</span>
-        </div>
-        <img src={whatsappIcon.src} alt="WhatsApp" class="whatsapp-btn-icon" />
-      </a>
-      -->
     </div>
   </div>
 </section>
@@ -326,84 +318,9 @@ const consultants = [
     font-weight: 700;
   }
 
-  /* WhatsApp Button */
-  .support-whatsapp-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding: 1rem;
-    border-radius: 1.25rem;
-    border: 3px solid transparent;
-    background-image:
-      linear-gradient(#fff, #fff), linear-gradient(90deg, #4642d8, #a29dff);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    justify-content: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-      transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      box-shadow 0.2s;
-    max-width: 480px;
-    width: 100%;
-  }
-
-  .support-whatsapp-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .whatsapp-btn-text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-
-  .whatsapp-btn-line1 {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #1a1a2e;
-    line-height: 1.2;
-  }
-
-  .whatsapp-btn-line2 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #4642d8;
-    line-height: 1.1;
-  }
-
-  .whatsapp-btn-line3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    margin-top: 0.25rem;
-  }
-
-  .whatsapp-btn-icon {
-    width: 80px;
-    height: auto;
-    flex-shrink: 0;
-  }
-
   @media (min-width: 768px) {
     .audit-cta {
       margin-top: 4.5rem;
-    }
-
-    .whatsapp-btn-line1 {
-      font-size: 1.5rem;
-    }
-
-    .whatsapp-btn-line2 {
-      font-size: 2.4rem;
-    }
-
-    .whatsapp-btn-icon {
-      width: 110px;
     }
   }
 </style>
