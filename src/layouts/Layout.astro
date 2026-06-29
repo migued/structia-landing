@@ -1,6 +1,5 @@
 ---
 import "@fontsource-variable/archivo";
-import BackgroundShapes from "../components/BackgroundShapes.astro";
 import structiaIcon from "../assets/structia-icon.png";
 ---
 
@@ -43,7 +42,6 @@ import structiaIcon from "../assets/structia-icon.png";
   </head>
   <body>
     <div class="page-root">
-      <BackgroundShapes />
       <div class="layout-container">
         <slot />
       </div>
@@ -69,6 +67,37 @@ import structiaIcon from "../assets/structia-icon.png";
   }
   .page-root {
     position: relative;
+  }
+  /* Fondo de luz ambiental UNIFICADO para toda la página: una capa fija
+     detrás del contenido, así el degradado fluye continuo entre secciones
+     (sin cortes). Las secciones van transparentes encima. */
+  .page-root::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        55% 48% at 10% 6%,
+        rgba(70, 66, 216, 0.22),
+        transparent 66%
+      ),
+      radial-gradient(
+        55% 48% at 90% 20%,
+        rgba(162, 157, 255, 0.19),
+        transparent 66%
+      ),
+      radial-gradient(
+        58% 50% at 84% 76%,
+        rgba(124, 92, 255, 0.19),
+        transparent 66%
+      ),
+      radial-gradient(
+        55% 48% at 14% 90%,
+        rgba(92, 115, 240, 0.16),
+        transparent 66%
+      );
   }
   .layout-container {
     margin: 0 auto;
