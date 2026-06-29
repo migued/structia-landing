@@ -1,87 +1,86 @@
 ---
+import { Image } from "astro:assets";
 import GradientButton from "./GradientButton.astro";
 import structiaAlonso from "../assets/structia-alonso.png";
 import structiaEduardo from "../assets/structia-eduardo.png";
 import structiaMiguel from "../assets/structia-miguel.png";
-import whatsappIcon from "../assets/whatsapp.svg";
 
 const consultants = [
   {
     firstName: "Alonso",
     lastName: "Arteaga",
-    photo: structiaAlonso.src,
+    photo: structiaAlonso,
+    role: "Inversionista inmobiliario, Fundador de Structia, Ubicantón y Co Fundador de Valiant.",
     description:
-      "<strong>Inversionista inmobiliario, Fundador de Structia, Ubicantón y Co Fundador de Valiant.</strong> Ha formado a más de 6,000 empresarios en toda Latinoamérica</strong>. Y realizado mas de 500 operaciones de flipping inmobiliario</strong>.",
+      "Ha formado a más de 6,000 empresarios en toda Latinoamérica. Y realizado mas de 500 operaciones de flipping inmobiliario.",
   },
   {
     firstName: "Eduardo",
     lastName: "Morales",
-    photo: structiaEduardo.src,
+    photo: structiaEduardo,
+    role: "Estratega tecnológico. Fundador de Valiant, Mi Casita Monterrey y Co Fundador de Structia.",
     description:
-      "<strong>Estratega tecnológico. Fundador de Valiant, Mi Casita Monterrey y Co Fundador de Structia.</strong> Ha sistematizado a múltiples empresas transnacionales y realizado más de 100 operaciones de flipping inmobiliario.",
+      "Ha sistematizado a múltiples empresas transnacionales y realizado más de 100 operaciones de flipping inmobiliario.",
   },
   {
     firstName: "Miguel",
     lastName: "Delgado",
-    photo: structiaMiguel.src,
+    photo: structiaMiguel,
+    role: "Especialista en Inteligencia Artificial y cofundador de Valiant.",
     description:
-      "<strong>Especialista en Inteligencia Artificial y cofundador de Valiant.</strong> Actualmente radicado en China, se mantiene a la vanguardia de las tecnologías emergentes y es considerado una de las <strong>mentes más avanzadas en IA inmobiliaria</strong>.",
+      "Actualmente radicado en China, se mantiene a la vanguardia de las tecnologías emergentes y es considerado una de las <strong>mentes más avanzadas en IA inmobiliaria</strong>.",
   },
 ];
 ---
 
 <section class="consultants container">
   <div class="consultants-content">
-    <h2 class="consultants-headline">Tus consultores</h2>
+    <h2 class="consultants-headline" data-reveal>Tus consultores</h2>
 
     <div class="consultants-grid">
       {
         consultants.map((person) => (
-          <div class="consultant-card">
-            <h3 class="consultant-name">
-              <strong>{person.firstName}</strong> {person.lastName}
-            </h3>
+          <article class="consultant-card" data-reveal>
             <div class="consultant-photo">
-              {person.photo ? (
-                <img
-                  src={person.photo}
-                  alt={`${person.firstName} ${person.lastName}`}
-                  class="consultant-img"
-                />
-              ) : (
-                <span class="consultant-photo-placeholder">Foto</span>
-              )}
+              <span class="consultant-badge">Structia</span>
+              <Image
+                src={person.photo}
+                alt={`${person.firstName} ${person.lastName}`}
+                width={680}
+                format="webp"
+                quality={78}
+                class="consultant-img"
+                loading="lazy"
+                decoding="async"
+              />
             </div>
-            <p class="consultant-desc" set:html={person.description} />
-          </div>
+            <div class="consultant-info">
+              <p class="consultant-role">{person.role}</p>
+              <h3 class="consultant-name">
+                <strong>{person.firstName}</strong> {person.lastName}
+              </h3>
+              <span class="consultant-divider" aria-hidden="true" />
+              <p class="consultant-desc" set:html={person.description} />
+            </div>
+          </article>
         ))
       }
     </div>
 
-    <GradientButton text="QUIERO MI AUDITORÍA" href="#video" />
-
-    <div class="audit-cta">
+    <div class="audit-cta" data-reveal>
       <p class="audit-cta-top">
         Aplica a una llamada de auditoría y descubre si tu empresa está lista
-        para escalar con Structia.
+        para <span class="audit-accent">escalar con Structia.</span>
       </p>
       <span class="audit-separator" aria-hidden="true"></span>
       <p class="audit-cta-bottom">
-        No todas las empresas califican. Si tu modelo cumple con los requisitos,
-        uno de nuestros consultores te mostrará cómo implementar la estructura
-        que usan las firmas de flipping más rentables del país.
+        <strong>No todas las empresas califican.</strong> Si tu modelo cumple
+        con los requisitos, uno de nuestros consultores te mostrará cómo
+        implementar la estructura que usan las firmas de flipping más rentables
+        del país.
       </p>
 
-      <!-- Botón WhatsApp oculto temporalmente
-      <a href="#" class="support-whatsapp-btn">
-        <div class="whatsapp-btn-text">
-          <span class="whatsapp-btn-line1">HABLAR CON UN</span>
-          <span class="whatsapp-btn-line2">CONSULTOR</span>
-          <span class="whatsapp-btn-line3">Dale clic y hablemos</span>
-        </div>
-        <img src={whatsappIcon.src} alt="WhatsApp" class="whatsapp-btn-icon" />
-      </a>
-      -->
+      <GradientButton text="QUIERO MI AUDITORÍA" href="#video" />
     </div>
   </div>
 </section>
@@ -89,12 +88,12 @@ const consultants = [
 <style>
   .consultants {
     width: 100%;
-    padding: 2rem 0;
+    padding: 3rem 0;
   }
 
   .consultants-content {
     width: 100%;
-    max-width: 80ch;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 0.5rem;
     display: flex;
@@ -103,7 +102,7 @@ const consultants = [
   }
 
   .consultants :global(.gradient-button) {
-    margin-top: 4rem;
+    margin-top: 0.75rem;
   }
 
   .consultants-headline {
@@ -111,235 +110,217 @@ const consultants = [
     font-weight: 700;
     text-align: center;
     line-height: 1.2;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
     color: #1a1a2e;
   }
 
   .consultants-grid {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    gap: 1.75rem;
     width: 100%;
   }
 
+  /* === Card de perfil (oscura, estilo BrickUp) === */
   .consultant-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-    max-width: 300px;
-    width: 100%;
-    gap: 1.25rem;
+    gap: 1.5rem;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, #1b1d31, #121324);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 18px 44px rgba(26, 26, 46, 0.12),
+      0 0 40px rgba(70, 66, 216, 0.08);
   }
 
-  .consultant-name {
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: #1a1a2e;
-    margin: 0;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-  }
-
-  .consultant-name strong {
-    font-weight: 800;
-  }
-
+  /* Foto enmarcada en un fondo con degradado morado */
   .consultant-photo {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
-    margin-top: 6rem;
-    margin-bottom: 2rem;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    background: linear-gradient(170deg, #2a2c4d 0%, #4642d8 65%, #6b78f0 100%);
   }
-
-  .consultant-photo::before {
-    content: "";
+  .consultant-badge {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 85%;
-    background: linear-gradient(180deg, #4642d8, #a29dff);
-    border-radius: 1.5rem;
-    z-index: 0;
+    top: 0.9rem;
+    left: 0.9rem;
+    z-index: 2;
+    padding: 0.35em 0.9em;
+    border-radius: 2em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    background: rgba(13, 14, 28, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
   }
-
   .consultant-img {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 120%; /* Proporción para que se salga por los lados */
-    height: 130%; /* Proporción para que se salga por arriba */
+    width: 92%;
+    height: 98%;
     object-fit: contain;
     object-position: bottom;
-    z-index: 1;
-    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 16px 26px rgba(0, 0, 0, 0.4));
     pointer-events: none;
   }
 
-  .consultant-photo-placeholder {
-    position: absolute;
-    bottom: 2rem;
-    left: 0;
-    right: 0;
-    z-index: 1;
-    color: rgba(255, 255, 255, 0.4);
-    font-size: 0.9rem;
+  /* Info */
+  .consultant-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
   }
-
-  .consultant-desc {
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #374151;
+  .consultant-role {
+    margin: 0 0 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    line-height: 1.35;
+    color: #8b93f5;
+  }
+  .consultant-name {
     margin: 0;
+    font-size: 1.7rem;
+    font-weight: 300;
+    line-height: 1.1;
+    color: #ffffff;
+  }
+  .consultant-name strong {
+    font-weight: 800;
+  }
+  .consultant-divider {
+    display: block;
+    width: 3rem;
+    height: 3px;
+    border-radius: 2px;
+    margin: 0.9rem 0;
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+  }
+  .consultant-desc {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.62);
     font-weight: 400;
+  }
+  .consultant-desc :global(strong) {
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 700;
   }
 
   @media (min-width: 768px) {
+    .consultants {
+      padding: 4rem 0;
+    }
     .consultants-content {
       padding: 0 1.5rem;
     }
-
     .consultants-headline {
       font-size: 2.5rem;
     }
-
     .consultants-grid {
+      gap: 2rem;
+    }
+
+    .consultant-card {
       flex-direction: row;
-      justify-content: center;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 1.75rem;
     }
-
+    /* Alterna el lado de la foto */
+    .consultant-card:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    .consultant-photo {
+      flex: 0 0 28%;
+      max-width: 260px;
+    }
+    .consultant-info {
+      flex: 1;
+    }
     .consultant-name {
-      font-size: 1.6rem;
+      font-size: 2.1rem;
     }
-
     .consultant-desc {
-      font-size: 1.05rem;
+      font-size: 1.08rem;
     }
   }
 
   /* Audit CTA */
   .audit-cta {
-    margin-top: 3rem;
+    margin-top: 3.5rem;
+    width: 100%;
+    max-width: 880px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 1rem;
-    max-width: 750px;
+    gap: 1.25rem;
   }
 
   .audit-cta-top {
-    font-size: 1.15rem;
-    line-height: 1.4;
-    color: #1a1a2e;
-    font-weight: 600;
     margin: 0;
+    font-size: clamp(1.25rem, 2.8vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #1a1a2e;
+    width: 100%;
+    max-width: 52ch;
+    text-wrap: balance;
+  }
+  /* Frase de acento en itálica con degradado (igual que el hero) */
+  .audit-accent {
+    font-style: italic;
+    font-weight: 700;
+    color: #5c73f0;
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 0.08em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   .audit-separator {
     display: block;
-    width: 80%;
-    max-width: 500px;
-    height: 5px;
+    width: 70%;
+    max-width: 360px;
+    height: 4px;
     border-radius: 3px;
-    background: linear-gradient(90deg, #95a0d4, #ffffff);
-    margin: 0.25rem auto;
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    margin: 0.1rem auto;
   }
 
   .audit-cta-bottom {
-    font-size: 1rem;
-    line-height: 1.4;
-    color: #4b5563;
-    font-weight: 400;
     margin: 0;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    line-height: 1.5;
+    color: #4b5563;
+    font-weight: 500;
+    max-width: 58ch;
   }
-
-  /* WhatsApp Button */
-  .support-whatsapp-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    padding: 1rem;
-    border-radius: 1.25rem;
-    border: 3px solid transparent;
-    background-image:
-      linear-gradient(#fff, #fff), linear-gradient(90deg, #4642d8, #a29dff);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    justify-content: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition:
-      transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-      box-shadow 0.2s;
-    max-width: 480px;
-    width: 100%;
-  }
-
-  .support-whatsapp-btn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  }
-
-  .whatsapp-btn-text {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-  }
-
-  .whatsapp-btn-line1 {
-    font-size: 1.3rem;
-    font-weight: 700;
+  .audit-cta-bottom strong {
     color: #1a1a2e;
-    line-height: 1.2;
-  }
-
-  .whatsapp-btn-line2 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #4642d8;
-    line-height: 1.1;
-  }
-
-  .whatsapp-btn-line3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    margin-top: 0.25rem;
-  }
-
-  .whatsapp-btn-icon {
-    width: 80px;
-    height: auto;
-    flex-shrink: 0;
+    font-weight: 700;
   }
 
   @media (min-width: 768px) {
-    .audit-cta-top {
-      font-size: 1.5rem;
-    }
-
-    .audit-cta-bottom {
-      font-size: 1.2rem;
-    }
-
-    .whatsapp-btn-line1 {
-      font-size: 1.5rem;
-    }
-
-    .whatsapp-btn-line2 {
-      font-size: 2.4rem;
-    }
-
-    .whatsapp-btn-icon {
-      width: 110px;
+    .audit-cta {
+      margin-top: 4.5rem;
     }
   }
 </style>

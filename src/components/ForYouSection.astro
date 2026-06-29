@@ -58,29 +58,49 @@ const notForYouItems = [
 
 <section class="for-you container">
   <div class="for-you-content">
-    <h2 class="for-you-headline">¿Es para ti?</h2>
-    <p class="for-you-intro">
-      Es para ti si te identificas con una o más de estas situaciones...
-    </p>
-
-    <div class="for-you-list">
-      {forYouItems.map((item, index) => (
-        <div class:list={["for-you-item", { "for-you-item--highlighted": index % 2 === 0 }]}>
-          <span class="for-you-number">{item.number}</span>
-          <p class="for-you-text" set:html={item.text} />
+    <div class="for-you-columns">
+      <div class="for-you-col">
+        <div class="for-you-col-head" data-reveal>
+          <h2 class="for-you-headline">¿Es para ti?</h2>
+          <p class="for-you-intro">
+            Es para ti si te identificas con una o más de estas situaciones...
+          </p>
         </div>
-      ))}
-    </div>
 
-    <h3 class="not-for-you-headline">No es para ti si…</h3>
-
-    <div class="for-you-list">
-      {notForYouItems.map((item, index) => (
-        <div class:list={["for-you-item", { "for-you-item--highlighted-red": index % 2 === 0 }]}>
-          <span class="for-you-number for-you-number--red">{item.number}</span>
-          <p class="for-you-text" set:html={item.text} />
+        <div class="for-you-list">
+          <span class="for-you-rail" aria-hidden="true"
+            ><span class="for-you-rail__fill"></span></span
+          >
+          {forYouItems.map((item) => (
+            <div class="for-you-item">
+              <div class="for-you-card">
+                <span class="for-you-number">{item.number}</span>
+                <p class="for-you-text" set:html={item.text} />
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+
+      <div class="for-you-col">
+        <div class="for-you-col-head" data-reveal>
+          <h3 class="not-for-you-headline">No es para ti si…</h3>
+        </div>
+
+        <div class="for-you-list for-you-list--muted">
+          <span class="for-you-rail" aria-hidden="true"
+            ><span class="for-you-rail__fill"></span></span
+          >
+          {notForYouItems.map((item) => (
+            <div class="for-you-item">
+              <div class="for-you-card">
+                <span class="for-you-number">{item.number}</span>
+                <p class="for-you-text" set:html={item.text} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
 
     <GradientButton text="QUIERO MI AUDITORÍA" href="#video" />
@@ -89,8 +109,10 @@ const notForYouItems = [
 
 <style>
   .for-you {
-    width: 100%;
-    padding: 0 0 2rem 0;
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw); /* full-bleed: rompe el límite de 1000px */
+    padding: 3rem 0;
   }
 
   .for-you-content {
@@ -101,6 +123,19 @@ const notForYouItems = [
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  /* Columnas: apiladas en móvil, lado a lado en desktop */
+  .for-you-columns {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .for-you-col {
+    width: 100%;
+  }
+  .for-you-col + .for-you-col {
+    margin-top: 3rem; /* separación entre columnas apiladas en móvil */
   }
 
   .for-you-headline {
@@ -121,55 +156,146 @@ const notForYouItems = [
   }
 
   .for-you-list {
+    position: relative;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 800px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  /* Riel del timeline: pista de fondo tenue + relleno que crece con el
+     scroll. El JS fija top/height del riel (del primer al último punto). */
+  .for-you-rail {
+    position: absolute;
+    left: 0.6rem;
+    transform: translateX(-50%);
+    width: 3px;
+    border-radius: 3px;
+    background: #e6e6f0;
+    pointer-events: none;
+  }
+  .for-you-rail__fill {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 0; /* el JS lo lleva de 0% a 100% según el scroll */
+    border-radius: 3px;
+    background: linear-gradient(180deg, #4642d8, #a29dff);
+    /* iluminación de la barra */
+    box-shadow:
+      0 0 8px 1px rgba(70, 66, 216, 0.55),
+      0 0 16px 2px rgba(70, 66, 216, 0.3);
+  }
+  .for-you-list--muted .for-you-rail__fill {
+    background: #9aa0ac;
+    box-shadow: none;
   }
 
   .for-you-item {
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
+    position: relative;
+    padding-left: 2.75rem; /* espacio para el riel del timeline */
+    padding-bottom: 1.5rem;
     text-align: left;
-    padding: 1rem;
-    border-radius: 0.5rem;
+  }
+  .for-you-item:last-child {
+    padding-bottom: 0;
   }
 
-  .for-you-item--highlighted {
-    background: rgba(169, 243, 225, 0.25);
+  /* Card de cada item: oscura por defecto, se ilumina (borde + glow) cuando
+     el scroll la alcanza — integra la línea interactiva con el resalte. */
+  .for-you-card {
+    border-radius: 1rem;
+    padding: 1.25rem 1.4rem;
+    background: rgba(110, 112, 135, 0.1);
+    border: 1px solid rgba(70, 66, 216, 0.12);
+    box-shadow: 0 6px 18px rgba(26, 26, 46, 0.05);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      background-color 0.3s ease;
+  }
+  .for-you-item.is-active .for-you-card {
+    background: rgba(70, 66, 216, 0.08);
+    border-color: rgba(70, 66, 216, 0.4);
+    box-shadow:
+      0 8px 22px rgba(26, 26, 46, 0.08),
+      0 0 20px rgba(70, 66, 216, 0.12);
+  }
+  .for-you-list--muted .for-you-item.is-active .for-you-card {
+    background: rgba(150, 155, 165, 0.12);
+    border-color: rgba(150, 155, 165, 0.45);
+    box-shadow: 0 8px 22px rgba(26, 26, 46, 0.07);
   }
 
-  .for-you-item--highlighted-red {
-    background: rgba(243, 169, 169, 0.25);
+  /* Punto / marcador: tenue por defecto, se "enciende" al pasar el scroll */
+  .for-you-item::after {
+    content: "";
+    position: absolute;
+    left: 0.6rem;
+    top: 0.2rem;
+    z-index: 1;
+    width: 1.15rem;
+    height: 1.15rem;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: #ffffff;
+    border: 3px solid #cdd0ea;
+    box-shadow: 0 0 0 5px rgba(70, 66, 216, 0.06);
+    transition:
+      border-color 0.3s ease,
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
-
-  .for-you-number--red {
-    color: #e05252;
+  .for-you-item.is-active::after {
+    border-color: #4642d8;
+    background: #4642d8;
+    box-shadow:
+      0 0 0 5px rgba(70, 66, 216, 0.18),
+      0 0 14px 2px rgba(70, 66, 216, 0.55);
+  }
+  .for-you-list--muted .for-you-item::after {
+    border-color: #d8dbe2;
+    box-shadow: 0 0 0 5px rgba(150, 155, 165, 0.06);
+  }
+  .for-you-list--muted .for-you-item.is-active::after {
+    border-color: #9aa0ac;
+    background: #9aa0ac;
+    box-shadow: 0 0 0 5px rgba(150, 155, 165, 0.18);
   }
 
   .for-you-number {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: #5c73f0;
-    flex-shrink: 0;
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 800;
     line-height: 1;
+    letter-spacing: -0.01em;
+    color: #4642d8;
+    margin-bottom: 0.5rem;
+  }
+  .for-you-list--muted .for-you-number {
+    color: #9aa0ac;
+  }
+  /* Iluminación de los números activos */
+  .for-you-list:not(.for-you-list--muted) .for-you-item.is-active .for-you-number {
+    text-shadow: 0 0 18px rgba(70, 66, 216, 0.4);
   }
 
   .for-you-text {
     font-size: 1.05rem;
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
+    color: #4b5563;
+  }
+  .for-you-text :global(strong) {
     color: #1a1a2e;
   }
 
   .not-for-you-headline {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 700;
     text-align: center;
     line-height: 1.2;
-    margin-top: 3rem;
+    margin-top: 0;
     margin-bottom: 1.5rem;
     color: #1a1a2e;
   }
@@ -179,8 +305,38 @@ const notForYouItems = [
   }
 
   @media (min-width: 768px) {
+    .for-you {
+      padding: 4rem 0;
+    }
     .for-you-content {
       padding: 0 1.5rem;
+      max-width: 1150px; /* container principal más ancho en desktop */
+    }
+
+    /* Las dos listas, lado a lado y alineadas por filas (subgrid):
+       fila 1 = encabezados, fila 2 = listas → los "01" quedan a la misma altura */
+    .for-you-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 3rem;
+      align-items: start;
+    }
+    .for-you-col {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: span 2;
+      min-width: 0;
+    }
+    .for-you-col + .for-you-col {
+      margin-top: 0;
+    }
+    /* Encabezado centrado verticalmente en su fila (la columna sin intro
+       queda en medio de su espacio) */
+    .for-you-col-head {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .for-you-headline {
@@ -192,15 +348,130 @@ const notForYouItems = [
     }
 
     .for-you-number {
-      font-size: 3rem;
+      font-size: 2.25rem;
     }
 
     .for-you-text {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
     }
 
     .not-for-you-headline {
-      font-size: 2rem;
+      font-size: 2.5rem; /* mismo tamaño que "¿Es para ti?" */
+      margin-top: 0;
     }
   }
 </style>
+
+<script>
+  // Línea de progreso del timeline: el relleno crece según el scroll y los
+  // puntos se "encienden" al ser alcanzados (estilo línea del tiempo).
+  function initForYouTimeline() {
+    const lists = document.querySelectorAll<HTMLElement>(".for-you-list");
+    if (!lists.length) return;
+
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const rootFont =
+      parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    // centro vertical del punto dentro de cada item (top 0.2rem + radio 0.575rem)
+    const dotCenter = 0.2 * rootFont + (1.15 * rootFont) / 2;
+
+    const setups: {
+      rail: HTMLElement;
+      fill: HTMLElement;
+      items: HTMLElement[];
+    }[] = [];
+
+    lists.forEach((list) => {
+      const rail = list.querySelector<HTMLElement>(".for-you-rail");
+      const fill = list.querySelector<HTMLElement>(".for-you-rail__fill");
+      const items = Array.from(
+        list.querySelectorAll<HTMLElement>(".for-you-item"),
+      );
+      if (!rail || !fill || items.length < 2) return;
+      setups.push({ rail, fill, items });
+    });
+    if (!setups.length) return;
+
+    function layout() {
+      setups.forEach(({ rail, items }) => {
+        const top = items[0].offsetTop + dotCenter;
+        const bottom = items[items.length - 1].offsetTop + dotCenter;
+        rail.style.top = top + "px";
+        rail.style.height = Math.max(0, bottom - top) + "px";
+      });
+    }
+
+    // valor "current" suavizado por lista (se acerca al objetivo con lerp)
+    const smooth = setups.map(() => ({ current: 0 }));
+
+    function apply(snap: boolean) {
+      const anchor = window.innerHeight * 0.55;
+      setups.forEach(({ rail, fill, items }, i) => {
+        const r = rail.getBoundingClientRect();
+        if (!r.height) return;
+        let target = (anchor - r.top) / r.height;
+        target = Math.max(0, Math.min(1, target));
+        const s = smooth[i];
+        // lerp: la barra "sigue" al scroll de forma suave
+        s.current = snap ? target : s.current + (target - s.current) * 0.12;
+        fill.style.height = s.current * 100 + "%";
+        const fillBottomY = r.top + r.height * s.current;
+        items.forEach((item) => {
+          const ir = item.getBoundingClientRect();
+          item.classList.toggle(
+            "is-active",
+            fillBottomY >= ir.top + dotCenter - 1,
+          );
+        });
+      });
+    }
+
+    if (reduce) {
+      layout();
+      setups.forEach(({ fill, items }) => {
+        fill.style.height = "100%";
+        items.forEach((i) => i.classList.add("is-active"));
+      });
+      return;
+    }
+
+    layout();
+    apply(true); // estado inicial sin suavizado
+
+    // Loop con lerp, pero SOLO mientras la sección está cerca del viewport
+    // (ahorra CPU cuando el usuario está en otra parte de la página).
+    let running = false;
+    function loop() {
+      apply(false);
+      if (running) requestAnimationFrame(loop);
+    }
+    function start() {
+      if (running) return;
+      running = true;
+      requestAnimationFrame(loop);
+    }
+    const section = document.querySelector(".for-you");
+    if (section && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) start();
+            else running = false;
+          });
+        },
+        { rootMargin: "200px 0px" },
+      );
+      io.observe(section);
+    } else {
+      start();
+    }
+
+    window.addEventListener("resize", layout);
+    window.addEventListener("load", layout);
+    setTimeout(layout, 400);
+  }
+
+  initForYouTimeline();
+</script>

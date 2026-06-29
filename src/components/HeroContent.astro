@@ -1,20 +1,60 @@
 ---
 import StoriesItems from "./StoriesItems.astro";
+
+// ⚠️ PLACEHOLDER: estas cifras son las de la imagen de BrickUp.
+// Reemplázalas por los números REALES de Structia.
+const stats = [
+  { value: 10000, prefix: "+", suffix: "", label: "Alumnos en 18 países" },
+  {
+    value: 150,
+    prefix: "+",
+    suffix: "",
+    label: "Proyectos inmobiliarios realizados",
+  },
+  { value: 300, prefix: "+", suffix: "MDD", label: "En desarrollos estructurados" },
+  { value: 10, prefix: "+", suffix: "", label: "Años de experiencia institucional" },
+];
 ---
 
 <div class="hero container" style="padding-top: 0;">
   <div class="hero-content">
-    <p class="hero-quote">
-      <strong>Hay decisiones que no se toman por entusiasmo.</strong> Se toman cuando la vida se cansa de seguir igual.
+    <p class="hero-quote" data-reveal>
+      Hay decisiones que no se toman por entusiasmo. <span
+        class="hero-quote__accent"
+        >Se toman cuando la vida se cansa de seguir igual.</span
+      >
     </p>
     <span class="hero-quote-separator" aria-hidden="true"></span>
-    <p class="hero-after-button">
-      Las empresas de flipping más <strong
-        >exitosas de México pasaron por aquí.</strong
+    <p class="hero-after-button" data-reveal>
+      Las empresas de flipping más <span
+        class="hero-after-button__accent"
+        >exitosas de México pasaron por aquí.</span
       >
     </p>
     <div class="hero-stories">
       <StoriesItems />
+    </div>
+
+    <div class="hero-stats" data-reveal>
+      <div class="hero-stats__grid">
+        {
+          stats.map((s) => (
+            <div class="hero-stats__item">
+              <span class="hero-stats__num">
+                <span
+                  class="hero-stats__value"
+                  data-count-to={s.value}
+                  data-prefix={s.prefix}
+                >
+                  {s.prefix}0
+                </span>
+                {s.suffix && <span class="hero-stats__suffix">{s.suffix}</span>}
+              </span>
+              <p class="hero-stats__label">{s.label}</p>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
@@ -32,14 +72,32 @@ import StoriesItems from "./StoriesItems.astro";
     margin-top: 1.25rem;
   }
   .hero-quote {
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
     text-align: center;
-    font-size: 1.05rem;
-    line-height: 1.5;
-    color: #4b5563;
-    max-width: 42ch;
+    font-size: clamp(1.2rem, 3.1vw, 1.85rem);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: #1a1a2e;
+    width: 100%;
+    max-width: 50ch;
     margin-left: auto;
     margin-right: auto;
+    text-wrap: balance;
+  }
+  .hero-quote__accent {
+    font-style: italic;
+    font-weight: 700;
+    color: #5c73f0; /* fallback si no hay soporte de gradiente en texto */
+    background: linear-gradient(90deg, #4642d8, #a29dff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* La itálica + recorte de gradiente puede "cortar" la última letra:
+       el padding y box-decoration-break dan aire a cada línea. */
+    padding-right: 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
   .hero-quote-separator {
     display: block;
@@ -51,19 +109,19 @@ import StoriesItems from "./StoriesItems.astro";
     margin: 1.25rem auto 0;
   }
   .hero-after-button {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: clamp(1.15rem, 2.6vw, 1.65rem);
+    font-weight: 500;
+    line-height: 1.45;
     color: #4b5563;
-    max-width: 38ch;
+    max-width: 42ch;
+    margin-left: auto;
+    margin-right: auto;
   }
-  @media (min-width: 768px) {
-    .hero-quote {
-      font-size: 1.3rem;
-    }
-    .hero-after-button {
-      font-size: 1.9rem;
-    }
+  .hero-after-button__accent {
+    color: #4642d8;
+    font-weight: 700;
   }
 
   /* Estilos para las historias dentro del Hero */
@@ -75,4 +133,138 @@ import StoriesItems from "./StoriesItems.astro";
     .hero-stories {
     }
   }
+
+  /* === Cuadro de indicadores === */
+  .hero-stats {
+    width: 100%;
+    max-width: 800px;
+    margin: 1rem auto 0;
+  }
+  .hero-stats__grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* móvil: 2x2 */
+    gap: 1px; /* el gap deja ver el divisor */
+    background: #23253d; /* color de los divisores */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1.25rem;
+    overflow: hidden;
+    /* mismo diseño que las cards de pilares: sombra + glow morado */
+    box-shadow:
+      0 20px 50px rgba(0, 0, 0, 0.4),
+      0 0 40px rgba(70, 66, 216, 0.2);
+  }
+  /* línea de acento morada arriba (como las cards de pilares) */
+  .hero-stats__grid::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 2;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #4642d8,
+      #a29dff,
+      transparent
+    );
+  }
+  .hero-stats__item {
+    /* degradado oscuro como las cards de pilares */
+    background: linear-gradient(
+      180deg,
+      rgba(22, 24, 46, 0.95),
+      rgba(12, 13, 27, 0.95)
+    );
+    padding: 1.5rem 1.25rem;
+    text-align: left;
+  }
+  .hero-stats__num {
+    display: block;
+    font-size: clamp(1.8rem, 6vw, 2.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums; /* evita "saltos" de ancho al contar */
+    white-space: nowrap; /* número + sufijo en una sola línea */
+  }
+  .hero-stats__suffix {
+    font-size: 0.55em; /* "MDD" más chico que el número */
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-left: 0.15em;
+  }
+  .hero-stats__label {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  @media (min-width: 768px) {
+    .hero-stats {
+      max-width: 880px; /* desktop: un poco más ancho que el video */
+    }
+    .hero-stats__grid {
+      grid-template-columns: repeat(4, 1fr); /* desktop: 1 fila de 4 */
+    }
+  }
 </style>
+
+<script>
+  // Animación de conteo: los números suben de 0 al valor objetivo
+  // cuando el cuadro entra en pantalla.
+  function initStatCounters() {
+    const nums = document.querySelectorAll<HTMLElement>(
+      ".hero-stats__value",
+    );
+    if (!nums.length) return;
+
+    const reduce = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const fmt = (n: number) => n.toLocaleString("es-MX");
+
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.countTo || "0");
+      const prefix = el.dataset.prefix || "";
+      const suffix = el.dataset.suffix || "";
+
+      if (reduce) {
+        el.textContent = prefix + fmt(target) + suffix;
+        return;
+      }
+
+      const duration = 1600;
+      const start = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
+        el.textContent = prefix + fmt(Math.round(target * eased)) + suffix;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    if (!("IntersectionObserver" in window)) {
+      nums.forEach((n) => run(n));
+      return;
+    }
+
+    const io = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            run(entry.target as HTMLElement);
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+    nums.forEach((n) => io.observe(n));
+  }
+
+  initStatCounters();
+</script>
