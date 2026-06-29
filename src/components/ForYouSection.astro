@@ -440,12 +440,33 @@ const notForYouItems = [
     layout();
     apply(true); // estado inicial sin suavizado
 
-    // Loop continuo: cada frame la barra se acerca suavemente al objetivo
+    // Loop con lerp, pero SOLO mientras la sección está cerca del viewport
+    // (ahorra CPU cuando el usuario está en otra parte de la página).
+    let running = false;
     function loop() {
       apply(false);
+      if (running) requestAnimationFrame(loop);
+    }
+    function start() {
+      if (running) return;
+      running = true;
       requestAnimationFrame(loop);
     }
-    requestAnimationFrame(loop);
+    const section = document.querySelector(".for-you");
+    if (section && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) start();
+            else running = false;
+          });
+        },
+        { rootMargin: "200px 0px" },
+      );
+      io.observe(section);
+    } else {
+      start();
+    }
 
     window.addEventListener("resize", layout);
     window.addEventListener("load", layout);
