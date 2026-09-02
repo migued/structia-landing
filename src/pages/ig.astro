@@ -1,10 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroVsl from "../components/HeroVsl.astro";
-import HeroContent from "../components/HeroContent.astro";
-import ForYouSection from "../components/ForYouSection.astro";
-import ConsultantsSection from "../components/ConsultantsSection.astro";
-import PillarsBanner from "../components/PillarsBanner.astro";
+import LandingSections from "../components/LandingSections.astro";
 
 const igVideo = `<vturb-smartplayer id="vid-69e0e5221faa892dfab537ef" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/76c39b99-7b9a-4274-9d21-e919f1948fc3/players/69e0e5221faa892dfab537ef/v4/player.js", s.async=!0,document.head.appendChild(s); </script>`;
 ---
@@ -13,10 +10,7 @@ const igVideo = `<vturb-smartplayer id="vid-69e0e5221faa892dfab537ef" style="dis
   <HeroVsl videoEmbed={igVideo} />
   
   <div id="delayed-content">
-    <HeroContent />
-    <ForYouSection />
-    <PillarsBanner />
-    <ConsultantsSection />
+    <LandingSections />
   </div>
 
   <style>

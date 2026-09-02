@@ -1,0 +1,48 @@
+---
+// Todo lo que va debajo del video (titular y video se colocan aparte).
+// En las páginas con delay, este bloque completo es el que se despliega.
+import CtaBlock from "./CtaBlock.astro";
+import OpeningSession from "./OpeningSession.astro";
+import SessionClose from "./SessionClose.astro";
+import BonusSection from "./BonusSection.astro";
+import TestimonialsSection from "./TestimonialsSection.astro";
+import AlonsoSection from "./AlonsoSection.astro";
+import ForYouSection from "./ForYouSection.astro";
+import LetterSection from "./LetterSection.astro";
+import FaqSection from "./FaqSection.astro";
+import ClosingSection from "./ClosingSection.astro";
+---
+
+<div class="landing-sections">
+  <div class="intro-cta">
+    <CtaBlock
+      button={false}
+      note="(Esto no es un curso ni un contrato…. es una llamada contigo 1:1)"
+    />
+  </div>
+
+  <OpeningSession />
+  <SessionClose />
+  <BonusSection />
+  <TestimonialsSection />
+  <AlonsoSection />
+  <ForYouSection />
+  <LetterSection />
+  <FaqSection />
+  <ClosingSection />
+</div>
+
+<style>
+  .landing-sections {
+    width: 100%;
+  }
+  .intro-cta {
+    padding: 2rem 0 0.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .intro-cta {
+      padding: 2.5rem 0 1rem;
+    }
+  }
+</style>

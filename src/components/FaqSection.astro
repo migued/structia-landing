@@ -1,0 +1,159 @@
+---
+// "Antes de agendar tal vez quieras saber esto…" — acordeón de preguntas.
+const faqs = [
+  {
+    q: "¿La llamada es con Alonso directamente?",
+    a: "No. La sesión de apertura será con alguien del equipo de Alonso, entrenado por él mismo. Toman llamadas con incontables personas cada semana.",
+  },
+  {
+    q: "¿Qué duración tiene la llamada?",
+    a: "La llamada tiene una duración de 45 minutos aproximadamente. Es el tiempo justo para leer tu combinación, definir tu próxima caja y diseñar tu Mapa.",
+  },
+  {
+    q: "¿Qué pasa si no tengo el capital para comprar una propiedad?",
+    a: "¡Está perfecto! Alonso hizo su primera operación cuando ganaba $500 al mes, sin comprar la propiedad y sin crédito. En la sesión vemos qué operación abre con lo que ya tienes, no con lo que te falta.",
+  },
+  {
+    q: "¿Y si no tengo experiencia en bienes raíces?",
+    a: "Muchas de las personas que agendan su sesión empiezan desde cero. La sesión no se basa en tu experiencia; se basa en tu combinación. Y todo el mundo tiene una.",
+  },
+  {
+    q: "¿Necesito dinero adicional para pagar algo más?",
+    a: "No. Son $79 y no hay cobros escondidos. Lo que necesitas para entrar al negocio se basa en tu propia combinación. Para eso existe el Mapa de Apertura que vamos a crear en la sesión.",
+  },
+  {
+    q: "¿Me van a vender algo después?",
+    a: "Esto no es una llamada de ventas disfrazada. Si quieres acompañamiento después, te contamos las opciones.",
+  },
+  {
+    q: "¿Y si mi caja es una que ustedes no enseñan?",
+    a: "Recibes igual la versión general de Ejecución Flash, con lo necesario para arrancar cualquier operación.",
+  },
+  {
+    q: "¿Por qué cuesta $79 la llamada?",
+    a: 'Porque filtra a la gente seria. Quien invierte $79 por 45 minutos se lo toma en serio y ejecuta. Los que buscan "gratis" rara vez lo hacen.',
+  },
+];
+---
+
+<section class="faq section">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Preguntas frecuentes</span>
+    <h2 class="section-title">
+      Antes de agendar <em>tal vez quieras saber esto…</em>
+    </h2>
+  </div>
+
+  <div class="faq-list">
+    {
+      faqs.map((item, i) => (
+        <details class="faq-item" name="faq" data-reveal style={`--reveal-delay:${i * 45}ms`}>
+          <summary class="faq-q">
+            <span>{item.q}</span>
+            <span class="faq-sign" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round">
+                <path d="M5 12h14" />
+                <path class="faq-sign__v" d="M12 5v14" />
+              </svg>
+            </span>
+          </summary>
+          <div class="faq-a">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq-list {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .faq-item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq-item[open] {
+    border-color: rgba(70, 66, 216, 0.24);
+  }
+
+  .faq-q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    text-align: left;
+  }
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-sign {
+    display: grid;
+    place-items: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    border-radius: 999px;
+    color: var(--brand);
+    background: var(--brand-soft);
+    transition: transform 0.25s ease;
+  }
+  .faq-sign svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+  .faq-item[open] .faq-sign {
+    transform: rotate(135deg);
+  }
+
+  .faq-a {
+    padding: 0 1.2rem 1.25rem;
+  }
+  .faq-a p {
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line-soft);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-align: left;
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .faq-q {
+      font-size: 1.08rem;
+      padding: 1.3rem 1.5rem;
+    }
+    .faq-a {
+      padding: 0 1.5rem 1.5rem;
+    }
+    .faq-a p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-sign {
+      transition: none;
+    }
+  }
+</style>

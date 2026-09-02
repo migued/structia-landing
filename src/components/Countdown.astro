@@ -1,0 +1,175 @@
+---
+import { BONUS_MINUTES } from "../config/site";
+
+interface Props {
+  /** Etiqueta encima del contador */
+  label?: string;
+  /** Variante para fondos oscuros */
+  tone?: "light" | "dark";
+  /** Tamaño compacto para usarse dentro de una tarjeta */
+  size?: "sm" | "md";
+}
+
+const { label, tone = "light", size = "md" } = Astro.props;
+---
+
+<div
+  class:list={["countdown", tone === "dark" && "is-dark", `is-${size}`]}
+  data-countdown
+  data-minutes={BONUS_MINUTES}
+>
+  {label && <span class="countdown-label">{label}</span>}
+  <div class="countdown-clock">
+    <span class="countdown-unit">
+      <span class="countdown-num" data-cd-min>--</span>
+      <span class="countdown-cap">min</span>
+    </span>
+    <span class="countdown-sep" aria-hidden="true">:</span>
+    <span class="countdown-unit">
+      <span class="countdown-num" data-cd-sec>--</span>
+      <span class="countdown-cap">seg</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .countdown {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+  }
+  .countdown-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    text-align: center;
+  }
+  .countdown-clock {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .countdown-unit {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 3.4rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.75rem;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+  .countdown-num {
+    font-size: 1.6rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown-cap {
+    margin-top: 0.2rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .countdown-sep {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--ink-mute);
+    padding-bottom: 0.7rem;
+  }
+
+  /* Compacto (dentro de tarjeta) */
+  .is-sm .countdown-unit {
+    min-width: 2.9rem;
+    padding: 0.4rem 0.5rem;
+  }
+  .is-sm .countdown-num {
+    font-size: 1.25rem;
+  }
+
+  /* Sobre fondo oscuro */
+  .is-dark .countdown-label {
+    color: rgba(255, 255, 255, 0.55);
+  }
+  .is-dark .countdown-unit {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+  }
+  .is-dark .countdown-num {
+    color: #fff;
+  }
+  .is-dark .countdown-cap,
+  .is-dark .countdown-sep {
+    color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media (min-width: 768px) {
+    .is-md .countdown-unit {
+      min-width: 4rem;
+    }
+    .is-md .countdown-num {
+      font-size: 2rem;
+    }
+  }
+</style>
+
+<script>
+  // Contador del Bono de Acción Rápida. La fecha límite se guarda en
+  // localStorage para que no se reinicie al recargar la página.
+  function initCountdowns() {
+    const nodes = document.querySelectorAll<HTMLElement>("[data-countdown]");
+    if (!nodes.length) return;
+
+    const KEY = "structia:bonus-deadline";
+    const minutes = Number(nodes[0].dataset.minutes || "20");
+
+    let deadline = 0;
+    try {
+      const stored = Number(window.localStorage.getItem(KEY) || "0");
+      deadline = stored > Date.now() ? stored : 0;
+    } catch {
+      deadline = 0;
+    }
+
+    if (!deadline) {
+      deadline = Date.now() + minutes * 60 * 1000;
+      try {
+        window.localStorage.setItem(KEY, String(deadline));
+      } catch {
+        /* modo privado: el contador vive solo en esta sesión */
+      }
+    }
+
+    const pad = (n: number) => String(n).padStart(2, "0");
+
+    const tick = () => {
+      const left = Math.max(0, deadline - Date.now());
+      const total = Math.floor(left / 1000);
+      const mm = Math.floor(total / 60);
+      const ss = total % 60;
+
+      nodes.forEach((node) => {
+        const min = node.querySelector("[data-cd-min]");
+        const sec = node.querySelector("[data-cd-sec]");
+        if (min) min.textContent = pad(mm);
+        if (sec) sec.textContent = pad(ss);
+        node.classList.toggle("is-expired", left === 0);
+      });
+
+      if (left > 0) window.setTimeout(tick, 1000);
+    };
+
+    tick();
+  }
+
+  initCountdowns();
+</script>
