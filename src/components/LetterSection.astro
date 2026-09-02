@@ -1,0 +1,277 @@
+---
+// Carta de Alonso — bloque centrado, en caja tipo carta, firmada.
+import { Image } from "astro:assets";
+import CtaBlock from "./CtaBlock.astro";
+import structiaAlonso from "../assets/structia-alonso.png";
+---
+
+<section class="letter section">
+  <article class="letter-paper" data-reveal>
+    <header class="letter-head">
+      <div class="letter-avatar">
+        <Image
+          src={structiaAlonso}
+          alt="Alonso Arteaga"
+          width={160}
+          format="webp"
+          quality={76}
+          class="letter-avatar__img"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="letter-head__text">
+        <span class="letter-from">Una nota de Alonso…</span>
+        <span class="letter-meta">Fundador de Structia</span>
+      </div>
+    </header>
+
+    <div class="letter-body">
+      <p class="letter-lead">Hablemos de los $79 dólares…</p>
+      <p>Porque probablemente es lo único que te está frenando ahora mismo.</p>
+      <p>Pero piénsalo…</p>
+      <p>
+        $79 dólares son menos que una cena que ya ni recuerdas. Menos que la
+        suscripción que pagas hace meses sin abrir.
+      </p>
+      <p class="letter-beat">Eso no es lo caro.</p>
+      <p>
+        Lo caro es llevar años frente a la misma puerta, juntando para una casa
+        que sube más rápido que tú.
+      </p>
+      <p class="letter-quote">Diciendo “el año que viene”.</p>
+      <p class="letter-quote">Diciendo “cuando alcance”.</p>
+      <p>
+        Y mientras tanto, el tiempo, los contactos y las habilidades que ya
+        tienes se quedan ahí, sin usarse, esperando un capital que siempre llega
+        tarde.
+      </p>
+      <p class="letter-beat">Yo estuve ahí.</p>
+      <p>
+        Ganaba $500 al mes y creía lo mismo que tú: que primero necesitaba el
+        dinero.
+      </p>
+      <p>
+        No era cierto. Mi primera operación la hice con lo que ya tenía. Y
+        probablemente tú también puedes.
+      </p>
+      <p>
+        No te voy a prometer cifras ni resultados. Te voy a prometer algo más
+        útil: que vas a salir sabiendo <strong>exactamente cuál es tu
+        operación</strong> y por dónde empezar.
+      </p>
+      <p class="letter-strong">
+        Los $79 no te compran una llamada. Te compran 45 minutos para dejar de
+        esperar.
+      </p>
+      <p class="letter-beat">Te estoy esperando.</p>
+    </div>
+
+    <footer class="letter-sign">
+      <span class="letter-signature">Alonso</span>
+      <span class="letter-signature-line" aria-hidden="true"></span>
+      <span class="letter-signature-name">Alonso Arteaga</span>
+    </footer>
+
+    <aside class="letter-ps">
+      <span class="letter-ps__tag">P.D.</span>
+      <p>
+        Si dentro de un año sigues juntando la inicial, no va a ser por falta de
+        disciplina. Va a ser porque <strong>nadie te mostró la otra puerta</strong>.
+        Esta es tu oportunidad de verla.
+      </p>
+    </aside>
+  </article>
+
+  <p class="letter-cta-line" data-reveal>
+    Da clic, elige tu horario y nos vemos en la llamada:
+  </p>
+
+  <CtaBlock />
+</section>
+
+<style>
+  .letter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .letter-paper {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--card-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 1.75rem 1.4rem;
+    text-align: left;
+    overflow: hidden;
+  }
+  /* Filo superior que da el aire de "papel membretado" */
+  .letter-paper::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand), var(--brand-3));
+  }
+
+  .letter-head {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .letter-avatar {
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    background: var(--brand-soft);
+  }
+  .letter-avatar :global(.letter-avatar__img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 12%;
+    display: block;
+  }
+  .letter-head__text {
+    display: flex;
+    flex-direction: column;
+  }
+  .letter-from {
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .letter-meta {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+  }
+
+  .letter-body p {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .letter-body p + p {
+    margin-top: 0.95rem;
+  }
+  .letter-body strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .letter-lead {
+    font-size: 1.2rem !important;
+    font-weight: 800;
+    color: var(--ink) !important;
+    letter-spacing: -0.02em;
+  }
+  .letter-beat {
+    font-weight: 700;
+    color: var(--ink) !important;
+  }
+  .letter-quote {
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--brand-3);
+    font-style: italic;
+    color: var(--ink-mute) !important;
+  }
+  .letter-quote + .letter-quote {
+    margin-top: 0.5rem !important;
+  }
+  .letter-strong {
+    margin-top: 1.25rem !important;
+    padding: 1rem 1.1rem;
+    border-radius: 0.9rem;
+    background: var(--brand-soft);
+    color: var(--ink) !important;
+    font-weight: 600;
+  }
+
+  .letter-sign {
+    margin-top: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .letter-signature {
+    font-family: "Segoe Script", "Bradley Hand", "Snell Roundhand", cursive;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--brand);
+    transform: rotate(-3deg);
+  }
+  .letter-signature-line {
+    width: 150px;
+    height: 1px;
+    background: var(--line);
+    margin-top: 0.5rem;
+  }
+  .letter-signature-name {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .letter-ps {
+    margin-top: 1.75rem;
+    padding: 1.15rem 1.2rem;
+    border-radius: 0.9rem;
+    border: 1px dashed rgba(18, 19, 42, 0.14);
+    background: rgba(18, 19, 42, 0.02);
+  }
+  .letter-ps__tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    margin-bottom: 0.4rem;
+  }
+  .letter-ps p {
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+  .letter-ps strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .letter-cta-line {
+    max-width: 54ch;
+    margin: 2.5rem auto 1.5rem;
+    text-align: center;
+    font-size: clamp(1.05rem, 2.6vw, 1.25rem);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+  }
+
+  @media (min-width: 768px) {
+    .letter-paper {
+      padding: 2.75rem 2.5rem;
+    }
+    .letter-body p {
+      font-size: 1.05rem;
+    }
+    .letter-lead {
+      font-size: 1.35rem !important;
+    }
+  }
+</style>

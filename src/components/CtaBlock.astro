@@ -1,0 +1,123 @@
+---
+import GradientButton from "./GradientButton.astro";
+import { CTA_HREF, CTA_TEXT, BADGES } from "../config/site";
+
+interface Props {
+  /** Texto del botón */
+  text?: string;
+  /** Nota en cursiva bajo la barra de garantías */
+  note?: string;
+  /** Mostrar u ocultar la barra de garantías */
+  badges?: boolean;
+  /** Mostrar u ocultar el botón */
+  button?: boolean;
+  /** Variante para fondos oscuros */
+  tone?: "light" | "dark";
+}
+
+const {
+  text = CTA_TEXT,
+  note,
+  badges = true,
+  button = true,
+  tone = "light",
+} = Astro.props;
+---
+
+<div class:list={["cta-block", tone === "dark" && "is-dark"]} data-reveal>
+  {button && <GradientButton text={text} href={CTA_HREF} />}
+
+  {
+    badges && (
+      <ul class="cta-badges">
+        {BADGES.map((b) => (
+          <li class="cta-badge">
+            <span class="cta-badge__icon" aria-hidden="true">
+              {b.icon}
+            </span>
+            <span class="cta-badge__text">{b.text}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  {note && <p class="cta-note">{note}</p>}
+</div>
+
+<style>
+  .cta-block {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.25rem;
+  }
+
+  .cta-badges {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    max-width: 640px;
+  }
+  .cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .cta-badge__icon {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+
+  .cta-note {
+    font-size: 0.95rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--ink-mute);
+    max-width: 34ch;
+    text-wrap: balance;
+  }
+
+  /* Variante sobre fondo oscuro */
+  .is-dark .cta-badge {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+    color: rgba(255, 255, 255, 0.92);
+  }
+  .is-dark .cta-note {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  @media (min-width: 768px) {
+    .cta-badges {
+      max-width: 780px;
+      flex-wrap: nowrap;
+    }
+    .cta-badge {
+      font-size: 0.95rem;
+      padding: 0.6rem 1.05rem;
+    }
+    .cta-note {
+      font-size: 1.1rem;
+      max-width: 70ch;
+    }
+  }
+</style>

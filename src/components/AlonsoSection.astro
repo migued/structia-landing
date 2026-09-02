@@ -1,0 +1,228 @@
+---
+// "Alonso no te va a dar su combinación…"
+// Izquierda: línea del tiempo con fotos del progreso de Alonso.
+// Derecha: su historia.
+import { Image } from "astro:assets";
+import structiaAlonso from "../assets/structia-alonso.png";
+
+// ⚠️ Falta la foto real de cada etapa: pon el archivo en src/assets,
+// impórtalo arriba y asígnalo en `photo`. Sin foto se muestra un marco
+// con el ícono de la etapa.
+const timeline = [
+  { label: "Cajero en BANAMEX", note: "$500 al mes", photo: null, icon: "🏦" },
+  { label: "Su primera operación", note: "Sin comprar, sin crédito", photo: null, icon: "🔑" },
+  { label: "Inversor en bienes raíces", note: "Remodelaciones, intestadas, remates", photo: null, icon: "🏘️" },
+  { label: "Academia de 8,000 alumnos", note: "Y el equipo que toma tu sesión", photo: structiaAlonso, icon: "🎓" },
+];
+---
+
+<section class="alonso section">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Quién está detrás</span>
+    <h2 class="section-title">
+      Alonso no te va a dar su combinación.<br />
+      <em>Él y su equipo te van a enseñar a ver la tuya.</em>
+    </h2>
+  </div>
+
+  <div class="alonso-grid">
+    <!-- Línea del tiempo con fotos -->
+    <ol class="al-timeline">
+      {
+        timeline.map((item, i) => (
+          <li class="al-item" data-reveal style={`--reveal-delay:${i * 80}ms`}>
+            <div class="al-photo">
+              {item.photo ? (
+                <Image
+                  src={item.photo}
+                  alt={item.label}
+                  width={320}
+                  format="webp"
+                  quality={76}
+                  class="al-img"
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                <span class="al-photo__ph" aria-hidden="true">
+                  {item.icon}
+                </span>
+              )}
+            </div>
+            <div class="al-caption">
+              <span class="al-label">{item.label}</span>
+              <span class="al-note">{item.note}</span>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <!-- Historia -->
+    <div class="al-story" data-reveal>
+      <p class="al-lead">
+        Alonso empezó como <strong>cajero en Banamex</strong> ganando $500 al
+        mes.
+      </p>
+      <p class="al-text">
+        Su primera operación en bienes raíces la hizo <strong>sin comprar la
+        propiedad y sin crédito</strong> — y le dejó más de lo que ganaba en un
+        año.
+      </p>
+      <p class="al-text">
+        De ahí pasó a remodelaciones, propiedades intestadas, remates y, con el
+        tiempo, a sus propias propiedades.
+      </p>
+      <p class="al-text">
+        Hoy dirige una academia con <strong>más de 8,000 alumnos</strong>, y
+        entrenó personalmente al equipo de especialistas que toma tu Sesión de
+        Apertura con el mismo criterio que él usa para evaluar una operación.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .alonso-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  /* ===== Línea del tiempo ===== */
+  .al-timeline {
+    position: relative;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+    padding-left: 0;
+  }
+  .al-timeline::before {
+    content: "";
+    position: absolute;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 38px;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      var(--brand-3),
+      var(--brand-2),
+      var(--brand-3)
+    );
+    opacity: 0.4;
+  }
+  .al-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .al-photo {
+    position: relative;
+    z-index: 1;
+    width: 76px;
+    height: 76px;
+    flex-shrink: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    background:
+      linear-gradient(160deg, rgba(70, 66, 216, 0.1), rgba(162, 157, 255, 0.14)),
+      var(--card);
+    border: 1px solid var(--line);
+    box-shadow:
+      0 0 0 5px var(--bg),
+      var(--shadow-sm);
+    display: grid;
+    place-items: center;
+  }
+  .al-photo :global(.al-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .al-photo__ph {
+    font-size: 1.6rem;
+    line-height: 1;
+    opacity: 0.65;
+  }
+  .al-caption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    text-align: left;
+  }
+  .al-label {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .al-note {
+    font-size: 0.82rem;
+    color: var(--ink-mute);
+    line-height: 1.35;
+  }
+
+  /* ===== Historia ===== */
+  .al-story {
+    background: var(--card-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem 1.4rem;
+    text-align: left;
+  }
+  .al-lead {
+    font-size: clamp(1.1rem, 2.8vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .al-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .al-text + .al-text {
+    margin-top: 0.9rem;
+  }
+  .al-story strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .al-lead strong {
+    color: var(--brand);
+  }
+
+  @media (min-width: 860px) {
+    .alonso-grid {
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: 3rem;
+      align-items: center;
+    }
+    .al-timeline {
+      gap: 1.35rem;
+    }
+    .al-photo {
+      width: 92px;
+      height: 92px;
+    }
+    .al-timeline::before {
+      left: 46px;
+    }
+    .al-story {
+      padding: 2rem 1.9rem;
+    }
+  }
+</style>

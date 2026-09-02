@@ -1,477 +1,201 @@
 ---
-import GradientButton from "./GradientButton.astro";
-
-const forYouItems = [
-  {
-    number: "01",
-    text: '<strong>Tu negocio de flipping funciona, pero a costa de tu paz mental.</strong> Terminás el día exhausto, con llamadas pendientes y obras por cerrar. Los números van bien, pero tú estás al límite. Te cuesta desconectarte y cualquier descanso termina en revisar mensajes o el CRM.',
-  },
-  {
-    number: "02",
-    text: '<strong>Tu operación crece, pero tus márgenes no.</strong> Tienes más obras, más equipo y más trabajo, pero las utilidades se mantienen igual o incluso bajan. Cada avance parece traer más complicaciones, no más libertad.',
-  },
-  {
-    number: "03",
-    text: '<strong>Buscas claridad y foco sin distracciones.</strong> Quieres salir del ruido, trabajar con precisión y tener una guía práctica. No más teoría ni relleno: necesitas estructura, dirección y resultados medibles.',
-  },
-  {
-    number: "04",
-    text: '<strong>Eres de los que ejecutan, no de los que acumulan ideas.</strong> Cuando algo tiene sentido, lo aplicas. Tomas decisiones, pruebas, corriges y avanzas. Sabes que el crecimiento no viene de escuchar más, sino de implementar mejor.',
-  },
-  {
-    number: "05",
-    text: '<strong>Resuelves y no necesitas que te lleven de la mano.</strong> No esperas que alguien te diga cada paso. Valoras la estrategia, pero asumes tu responsabilidad. Sigues instrucciones, haces preguntas inteligentes y avanzas sin depender de "niñeras".',
-  },
-  {
-    number: "06",
-    text: '<strong>Te desespera la inmediatez sin dirección.</strong> Quieres resultados, pero no a cualquier precio. Sabes que las soluciones rápidas sin estructura solo te devuelven al mismo punto. Prefieres construir algo sólido, no apagar incendios eternamente.',
-  },
-  {
-    number: "07",
-    text: '<strong>Estás listo para dejar de operar y empezar a dirigir.</strong> Sabes que no puedes seguir dependiendo de ti mismo. Quieres una empresa que funcione con sistemas, procesos y personas alineadas, sin que todo gire alrededor tuyo.',
-  },
-  {
-    number: "08",
-    text: '<strong>Quieres trascender el flipping.</strong> Ya dominaste la remodelación y venta. Ahora buscas algo más grande: escalar, diversificar y construir un negocio que no solo facture, sino que trascienda.',
-  },
+// "Una de estas dos columnas es tuya…"
+const forYou = [
+  "Llevas años juntando para tu primera propiedad… pero cada vez que juntas la inicial, la casa ya subió.",
+  "Eres empleado o emprendedor y sabes que tu sueldo solo no te va a dar el patrimonio que quieres.",
+  "Estás dispuesto a mirar con honestidad lo que ya tienes: tiempo, contactos, habilidades y capital.",
+  "Quieres un mapa con tu nombre — no un método construido alrededor de la realidad de otro.",
 ];
 
-const notForYouItems = [
-  {
-    number: "01",
-    text: '<strong>Si todavía no tienes un negocio de flipping inmobiliario en marcha.</strong> Necesitas tener ventas reales, una operación activa y algo que mejorar. No es un programa para principiantes ni para quienes apenas están "viendo si se animan".',
-  },
-  {
-    number: "02",
-    text: '<strong>Si necesitas que alguien te persiga para implementar.</strong> No somos "niñeros" queremos trabajar con gente comprometida a convertirse en un empresario real. Aquí no te vamos a estar recordando tus tareas: si no aplicas lo aprendido, el sistema no funcionará por ti.',
-  },
-  {
-    number: "03",
-    text: '<strong>Si esperas que te lo demos todo hecho.</strong> Structia no es una bandeja de plata. Es un universo probado que requiere criterio, acción y mentalidad de liderazgo.',
-  },
-  {
-    number: "04",
-    text: '<strong>Si no estás dispuesto a soltar lo que no funciona.</strong> Este proceso exige tomar decisiones reales: simplificar, delegar, estructurar y cambiar. Si prefieres mantener el caos que conoces antes que enfrentar el orden que te reta, no es para ti.',
-  },
+const notForYou = [
+  "Buscas que alguien te dé la respuesta sin estudiar primero tu situación.",
+  "Quieres la fórmula de otro sin hacer el trabajo.",
+  'Prefieres seguir ahorrando "hasta que alcance" mientras el mercado te sigue ganando.',
+  'Vas a seguir esperando "el momento perfecto" mientras tu familia sigue esperando.',
 ];
 ---
 
-<section class="for-you container">
-  <div class="for-you-content">
-    <div class="for-you-columns">
-      <div class="for-you-col">
-        <div class="for-you-col-head" data-reveal>
-          <h2 class="for-you-headline">¿Es para ti?</h2>
-          <p class="for-you-intro">
-            Es para ti si te identificas con una o más de estas situaciones...
-          </p>
-        </div>
+<section class="fit section">
+  <div class="section-head" data-reveal>
+    <h2 class="section-title">Una de estas dos columnas <em>es tuya…</em></h2>
+  </div>
 
-        <div class="for-you-list">
-          <span class="for-you-rail" aria-hidden="true"
-            ><span class="for-you-rail__fill"></span></span
-          >
-          {forYouItems.map((item) => (
-            <div class="for-you-item">
-              <div class="for-you-card">
-                <span class="for-you-number">{item.number}</span>
-                <p class="for-you-text" set:html={item.text} />
-              </div>
-            </div>
-          ))}
-        </div>
+  <div class="fit-grid">
+    <div class="fit-col fit-col--yes" data-reveal>
+      <div class="fit-head">
+        <span class="fit-icon fit-icon--yes" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 6 9 17l-5-5"></path>
+          </svg>
+        </span>
+        <h3 class="fit-title">Esto es para ti…</h3>
       </div>
-
-      <div class="for-you-col">
-        <div class="for-you-col-head" data-reveal>
-          <h3 class="not-for-you-headline">No es para ti si…</h3>
-        </div>
-
-        <div class="for-you-list for-you-list--muted">
-          <span class="for-you-rail" aria-hidden="true"
-            ><span class="for-you-rail__fill"></span></span
-          >
-          {notForYouItems.map((item) => (
-            <div class="for-you-item">
-              <div class="for-you-card">
-                <span class="for-you-number">{item.number}</span>
-                <p class="for-you-text" set:html={item.text} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <ul class="fit-list">
+        {
+          forYou.map((t) => (
+            <li class="fit-item">
+              <span class="fit-bullet fit-bullet--yes" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+              </span>
+              <p class="fit-text">{t}</p>
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
-    <GradientButton text="QUIERO MI AUDITORÍA" href="#video" />
+    <div class="fit-col fit-col--no" data-reveal style="--reveal-delay:110ms">
+      <div class="fit-head">
+        <span class="fit-icon fit-icon--no" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </span>
+        <h3 class="fit-title">Esto no es para ti…</h3>
+      </div>
+      <ul class="fit-list">
+        {
+          notForYou.map((t) => (
+            <li class="fit-item">
+              <span class="fit-bullet fit-bullet--no" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </span>
+              <p class="fit-text">{t}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </section>
 
 <style>
-  .for-you {
-    position: relative;
-    width: 100vw;
-    margin-left: calc(50% - 50vw); /* full-bleed: rompe el límite de 1000px */
-    padding: 3rem 0;
-  }
-
-  .for-you-content {
-    width: 100%;
-    max-width: 80ch;
-    margin: 0 auto;
-    padding: 0 0.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  /* Columnas: apiladas en móvil, lado a lado en desktop */
-  .for-you-columns {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  .for-you-col {
-    width: 100%;
-  }
-  .for-you-col + .for-you-col {
-    margin-top: 3rem; /* separación entre columnas apiladas en móvil */
-  }
-
-  .for-you-headline {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.2;
-    margin-bottom: 0.5rem;
-  }
-
-  .for-you-intro {
-    font-size: 1.2rem;
-    text-align: center;
-    line-height: 1.4;
-    color: #4b5563;
-    max-width: 50ch;
-    margin-bottom: 2rem;
-  }
-
-  .for-you-list {
-    position: relative;
-    width: 100%;
-    max-width: 720px;
+  .fit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 980px;
     margin: 0 auto;
   }
 
-  /* Riel del timeline: pista de fondo tenue + relleno que crece con el
-     scroll. El JS fija top/height del riel (del primer al último punto). */
-  .for-you-rail {
-    position: absolute;
-    left: 0.6rem;
-    transform: translateX(-50%);
-    width: 3px;
-    border-radius: 3px;
-    background: #e6e6f0;
-    pointer-events: none;
+  .fit-col {
+    background: var(--card-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5rem 1.35rem;
+    text-align: left;
   }
-  .for-you-rail__fill {
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 0; /* el JS lo lleva de 0% a 100% según el scroll */
-    border-radius: 3px;
-    background: linear-gradient(180deg, #4642d8, #a29dff);
-    /* iluminación de la barra */
-    box-shadow:
-      0 0 8px 1px rgba(70, 66, 216, 0.55),
-      0 0 16px 2px rgba(70, 66, 216, 0.3);
+  .fit-col--yes {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(70, 66, 216, 0.18);
   }
-  .for-you-list--muted .for-you-rail__fill {
-    background: #9aa0ac;
+  .fit-col--no {
+    background: linear-gradient(
+      180deg,
+      rgba(18, 19, 42, 0.045),
+      rgba(18, 19, 42, 0.012)
+    );
     box-shadow: none;
   }
 
-  .for-you-item {
-    position: relative;
-    padding-left: 2.75rem; /* espacio para el riel del timeline */
-    padding-bottom: 1.5rem;
-    text-align: left;
+  .fit-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.1rem;
+    border-bottom: 1px solid var(--line-soft);
   }
-  .for-you-item:last-child {
-    padding-bottom: 0;
+  .fit-icon {
+    display: grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 0.7rem;
+    flex-shrink: 0;
   }
-
-  /* Card de cada item: oscura por defecto, se ilumina (borde + glow) cuando
-     el scroll la alcanza — integra la línea interactiva con el resalte. */
-  .for-you-card {
-    border-radius: 1rem;
-    padding: 1.25rem 1.4rem;
-    background: rgba(110, 112, 135, 0.1);
-    border: 1px solid rgba(70, 66, 216, 0.12);
-    box-shadow: 0 6px 18px rgba(26, 26, 46, 0.05);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    transition:
-      border-color 0.3s ease,
-      box-shadow 0.3s ease,
-      background-color 0.3s ease;
+  .fit-icon svg {
+    width: 1.1rem;
+    height: 1.1rem;
   }
-  .for-you-item.is-active .for-you-card {
-    background: rgba(70, 66, 216, 0.08);
-    border-color: rgba(70, 66, 216, 0.4);
-    box-shadow:
-      0 8px 22px rgba(26, 26, 46, 0.08),
-      0 0 20px rgba(70, 66, 216, 0.12);
+  .fit-icon--yes {
+    color: #fff;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    box-shadow: 0 6px 16px rgba(70, 66, 216, 0.3);
   }
-  .for-you-list--muted .for-you-item.is-active .for-you-card {
-    background: rgba(150, 155, 165, 0.12);
-    border-color: rgba(150, 155, 165, 0.45);
-    box-shadow: 0 8px 22px rgba(26, 26, 46, 0.07);
+  .fit-icon--no {
+    color: var(--ink-mute);
+    background: rgba(18, 19, 42, 0.06);
   }
-
-  /* Punto / marcador: tenue por defecto, se "enciende" al pasar el scroll */
-  .for-you-item::after {
-    content: "";
-    position: absolute;
-    left: 0.6rem;
-    top: 0.2rem;
-    z-index: 1;
-    width: 1.15rem;
-    height: 1.15rem;
-    transform: translateX(-50%);
-    border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #cdd0ea;
-    box-shadow: 0 0 0 5px rgba(70, 66, 216, 0.06);
-    transition:
-      border-color 0.3s ease,
-      background-color 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-  .for-you-item.is-active::after {
-    border-color: #4642d8;
-    background: #4642d8;
-    box-shadow:
-      0 0 0 5px rgba(70, 66, 216, 0.18),
-      0 0 14px 2px rgba(70, 66, 216, 0.55);
-  }
-  .for-you-list--muted .for-you-item::after {
-    border-color: #d8dbe2;
-    box-shadow: 0 0 0 5px rgba(150, 155, 165, 0.06);
-  }
-  .for-you-list--muted .for-you-item.is-active::after {
-    border-color: #9aa0ac;
-    background: #9aa0ac;
-    box-shadow: 0 0 0 5px rgba(150, 155, 165, 0.18);
-  }
-
-  .for-you-number {
-    display: block;
-    font-size: 1.75rem;
+  .fit-title {
+    font-size: clamp(1.15rem, 3vw, 1.4rem);
     font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.01em;
-    color: #4642d8;
-    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
   }
-  .for-you-list--muted .for-you-number {
-    color: #9aa0ac;
-  }
-  /* Iluminación de los números activos */
-  .for-you-list:not(.for-you-list--muted) .for-you-item.is-active .for-you-number {
-    text-shadow: 0 0 18px rgba(70, 66, 216, 0.4);
+  .fit-col--no .fit-title {
+    color: var(--ink-mute);
   }
 
-  .for-you-text {
-    font-size: 1.05rem;
+  .fit-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .fit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .fit-bullet {
+    display: grid;
+    place-items: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    border-radius: 999px;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .fit-bullet svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+  .fit-bullet--yes {
+    color: var(--brand);
+    background: var(--brand-soft);
+  }
+  .fit-bullet--no {
+    color: var(--ink-mute);
+    background: rgba(18, 19, 42, 0.06);
+  }
+  .fit-text {
+    font-size: 0.96rem;
     line-height: 1.5;
-    margin: 0;
-    color: #4b5563;
+    color: var(--ink-soft);
+    text-wrap: pretty;
   }
-  .for-you-text :global(strong) {
-    color: #1a1a2e;
-  }
-
-  .not-for-you-headline {
-    font-size: 1.5rem;
-    font-weight: 700;
-    text-align: center;
-    line-height: 1.2;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    color: #1a1a2e;
+  .fit-col--yes .fit-text {
+    color: var(--ink);
   }
 
-  .for-you :global(.gradient-button) {
-    margin-top: 2rem;
-  }
-
-  @media (min-width: 768px) {
-    .for-you {
-      padding: 4rem 0;
-    }
-    .for-you-content {
-      padding: 0 1.5rem;
-      max-width: 1150px; /* container principal más ancho en desktop */
-    }
-
-    /* Las dos listas, lado a lado y alineadas por filas (subgrid):
-       fila 1 = encabezados, fila 2 = listas → los "01" quedan a la misma altura */
-    .for-you-columns {
-      display: grid;
+  @media (min-width: 860px) {
+    .fit-grid {
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto;
-      column-gap: 3rem;
       align-items: start;
     }
-    .for-you-col {
-      display: grid;
-      grid-template-rows: subgrid;
-      grid-row: span 2;
-      min-width: 0;
+    .fit-col {
+      padding: 2rem 1.85rem;
     }
-    .for-you-col + .for-you-col {
-      margin-top: 0;
-    }
-    /* Encabezado centrado verticalmente en su fila (la columna sin intro
-       queda en medio de su espacio) */
-    .for-you-col-head {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .for-you-headline {
-      font-size: 2.5rem;
-    }
-
-    .for-you-intro {
-      font-size: 1.5rem;
-    }
-
-    .for-you-number {
-      font-size: 2.25rem;
-    }
-
-    .for-you-text {
-      font-size: 1.2rem;
-    }
-
-    .not-for-you-headline {
-      font-size: 2.5rem; /* mismo tamaño que "¿Es para ti?" */
-      margin-top: 0;
+    .fit-text {
+      font-size: 1rem;
     }
   }
 </style>
-
-<script>
-  // Línea de progreso del timeline: el relleno crece según el scroll y los
-  // puntos se "encienden" al ser alcanzados (estilo línea del tiempo).
-  function initForYouTimeline() {
-    const lists = document.querySelectorAll<HTMLElement>(".for-you-list");
-    if (!lists.length) return;
-
-    const reduce = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const rootFont =
-      parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    // centro vertical del punto dentro de cada item (top 0.2rem + radio 0.575rem)
-    const dotCenter = 0.2 * rootFont + (1.15 * rootFont) / 2;
-
-    const setups: {
-      rail: HTMLElement;
-      fill: HTMLElement;
-      items: HTMLElement[];
-    }[] = [];
-
-    lists.forEach((list) => {
-      const rail = list.querySelector<HTMLElement>(".for-you-rail");
-      const fill = list.querySelector<HTMLElement>(".for-you-rail__fill");
-      const items = Array.from(
-        list.querySelectorAll<HTMLElement>(".for-you-item"),
-      );
-      if (!rail || !fill || items.length < 2) return;
-      setups.push({ rail, fill, items });
-    });
-    if (!setups.length) return;
-
-    function layout() {
-      setups.forEach(({ rail, items }) => {
-        const top = items[0].offsetTop + dotCenter;
-        const bottom = items[items.length - 1].offsetTop + dotCenter;
-        rail.style.top = top + "px";
-        rail.style.height = Math.max(0, bottom - top) + "px";
-      });
-    }
-
-    // valor "current" suavizado por lista (se acerca al objetivo con lerp)
-    const smooth = setups.map(() => ({ current: 0 }));
-
-    function apply(snap: boolean) {
-      const anchor = window.innerHeight * 0.55;
-      setups.forEach(({ rail, fill, items }, i) => {
-        const r = rail.getBoundingClientRect();
-        if (!r.height) return;
-        let target = (anchor - r.top) / r.height;
-        target = Math.max(0, Math.min(1, target));
-        const s = smooth[i];
-        // lerp: la barra "sigue" al scroll de forma suave
-        s.current = snap ? target : s.current + (target - s.current) * 0.12;
-        fill.style.height = s.current * 100 + "%";
-        const fillBottomY = r.top + r.height * s.current;
-        items.forEach((item) => {
-          const ir = item.getBoundingClientRect();
-          item.classList.toggle(
-            "is-active",
-            fillBottomY >= ir.top + dotCenter - 1,
-          );
-        });
-      });
-    }
-
-    if (reduce) {
-      layout();
-      setups.forEach(({ fill, items }) => {
-        fill.style.height = "100%";
-        items.forEach((i) => i.classList.add("is-active"));
-      });
-      return;
-    }
-
-    layout();
-    apply(true); // estado inicial sin suavizado
-
-    // Loop con lerp, pero SOLO mientras la sección está cerca del viewport
-    // (ahorra CPU cuando el usuario está en otra parte de la página).
-    let running = false;
-    function loop() {
-      apply(false);
-      if (running) requestAnimationFrame(loop);
-    }
-    function start() {
-      if (running) return;
-      running = true;
-      requestAnimationFrame(loop);
-    }
-    const section = document.querySelector(".for-you");
-    if (section && "IntersectionObserver" in window) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) start();
-            else running = false;
-          });
-        },
-        { rootMargin: "200px 0px" },
-      );
-      io.observe(section);
-    } else {
-      start();
-    }
-
-    window.addEventListener("resize", layout);
-    window.addEventListener("load", layout);
-    setTimeout(layout, 400);
-  }
-
-  initForYouTimeline();
-</script>

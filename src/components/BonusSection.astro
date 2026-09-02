@@ -1,0 +1,257 @@
+---
+// "Y además, te llevas esto:" — dos tarjetas sombreadas.
+// La segunda es el Bono de Acción Rápida, con etiqueta y contador.
+import CtaBlock from "./CtaBlock.astro";
+import Countdown from "./Countdown.astro";
+import { CTA_TEXT_BONUS } from "../config/site";
+---
+
+<section class="bonus section">
+  <div class="section-head" data-reveal>
+    <h2 class="section-title">Y además, <em>te llevas esto:</em></h2>
+  </div>
+
+  <div class="bonus-grid">
+    <!-- Tarjeta 1 — incluido siempre -->
+    <article class="bonus-card" data-reveal>
+      <span class="bonus-tag">Incluido</span>
+      <h3 class="bonus-title">Mapa de Modelos Inmobiliarios</h3>
+      <p class="bonus-text">
+        Nadie te había mostrado todas las formas de hacer bienes raíces lado a
+        lado. Esta matriz lo hace: <strong>capital, tiempo, experiencia y
+        complejidad</strong> de cada una, para que entiendas por qué te
+        recomendamos una y no otra.
+      </p>
+
+      <ul class="bonus-matrix" aria-hidden="true">
+        <li class="bonus-matrix__head">
+          <span>Modelo</span><span>Capital</span><span>Tiempo</span><span
+            >Nivel</span
+          >
+        </li>
+        <li><span>Remodelar y vender</span><span>Alto</span><span>Medio</span><span>2</span></li>
+        <li><span>Intestadas</span><span>Bajo</span><span>Alto</span><span>3</span></li>
+        <li><span>Remates</span><span>Medio</span><span>Bajo</span><span>2</span></li>
+        <li><span>Estructurar</span><span>Nulo</span><span>Medio</span><span>1</span></li>
+      </ul>
+    </article>
+
+    <!-- Tarjeta 2 — bono con contador -->
+    <article class="bonus-card bonus-card--dark" data-reveal style="--reveal-delay:110ms">
+      <div class="bonus-card__top">
+        <span class="bonus-tag bonus-tag--hot">Bono de acción rápida</span>
+        <Countdown tone="dark" size="sm" />
+      </div>
+      <p class="bonus-cond">
+        (Solo si agendas antes de que se cierre el contador)
+      </p>
+
+      <h3 class="bonus-title bonus-title--light">Ejecución Flash</h3>
+      <p class="bonus-text bonus-text--light">
+        Saber cuál es tu operación es una cosa. Tener con qué empezarla es otra.
+      </p>
+
+      <ul class="bonus-list">
+        <li>Los contratos de tu caja</li>
+        <li>El checklist de ejecución</li>
+        <li>La calculadora de la operación</li>
+        <li>El formato de propuesta, listo para usar</li>
+      </ul>
+
+      <p class="bonus-kicker">
+        Sales con claridad… y con las herramientas en la mano.
+      </p>
+    </article>
+  </div>
+
+  <div class="bonus-cta" data-reveal>
+    <Countdown label="Tiempo restante para el bono" />
+    <CtaBlock text={CTA_TEXT_BONUS} badges={false} />
+  </div>
+</section>
+
+<style>
+  .bonus-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: 980px;
+    margin: 0 auto;
+  }
+
+  .bonus-card {
+    background: var(--card-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    padding: 1.6rem 1.4rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bonus-tag {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    background: var(--brand-soft);
+    border-radius: 999px;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 0.9rem;
+  }
+  .bonus-tag--hot {
+    color: #fff;
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    box-shadow: 0 6px 18px rgba(70, 66, 216, 0.35);
+    margin-bottom: 0;
+  }
+
+  .bonus-title {
+    font-size: clamp(1.25rem, 3.4vw, 1.6rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .bonus-title--light {
+    color: #fff;
+  }
+  .bonus-text {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .bonus-text strong {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .bonus-text--light {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  /* Mini matriz gráfica de la tarjeta 1 */
+  .bonus-matrix {
+    list-style: none;
+    margin-top: 1.25rem;
+    border: 1px solid var(--line-soft);
+    border-radius: 0.8rem;
+    overflow: hidden;
+  }
+  .bonus-matrix li {
+    display: grid;
+    grid-template-columns: 1.6fr 0.8fr 0.8fr 0.5fr;
+    gap: 0.4rem;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+  }
+  .bonus-matrix li + li {
+    border-top: 1px solid var(--line-soft);
+  }
+  .bonus-matrix li:nth-child(even) {
+    background: rgba(18, 19, 42, 0.02);
+  }
+  .bonus-matrix__head {
+    background: var(--brand-soft) !important;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.66rem !important;
+    color: var(--brand) !important;
+  }
+
+  /* Tarjeta oscura del bono */
+  .bonus-card--dark {
+    position: relative;
+    background: linear-gradient(165deg, #1b1c38, #101127);
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+      0 24px 60px rgba(18, 19, 42, 0.28),
+      0 0 0 1px rgba(124, 92, 255, 0.12) inset;
+    overflow: hidden;
+  }
+  .bonus-card--dark::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--brand),
+      var(--brand-3),
+      transparent
+    );
+  }
+  .bonus-card__top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  .bonus-cond {
+    font-size: 0.82rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 1.1rem;
+  }
+  .bonus-list {
+    list-style: none;
+    margin-top: 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .bonus-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+  }
+  .bonus-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--brand-3);
+    font-weight: 700;
+  }
+  .bonus-kicker {
+    margin-top: 1.25rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .bonus-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  @media (min-width: 860px) {
+    .bonus-grid {
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+    .bonus-card {
+      padding: 2rem 1.85rem;
+    }
+    .bonus-text {
+      font-size: 1.02rem;
+    }
+  }
+</style>

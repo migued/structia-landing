@@ -36,7 +36,7 @@ import structiaIcon from "../assets/structia-icon.png";
     <link rel="dns-prefetch" href="https://images.converteai.net" />
     <link rel="dns-prefetch" href="https://api.vturb.com.br" />
     <title>
-      Structia | Domina el Flipping Inmobiliario y Escala tu Negocio
+      Structia | Sesión de Apertura — Tu mapa en 45 minutos
     </title>
     <slot name="head" />
   </head>
@@ -81,6 +81,33 @@ import structiaIcon from "../assets/structia-icon.png";
 </html>
 
 <style is:global>
+  /* ============================================================
+     Sistema de diseño — claro, moderno y minimalista.
+     El oscuro se reserva para acentos puntuales (bono, cierre).
+     ============================================================ */
+  :root {
+    --ink: #12132a;
+    --ink-soft: #4b5563;
+    --ink-mute: #6b7280;
+    --line: rgba(18, 19, 42, 0.1);
+    --line-soft: rgba(18, 19, 42, 0.06);
+    --bg: #f7f7fa;
+    --card: #ffffff;
+    /* Superficie con un degradado mínimo, para tarjetas grandes */
+    --card-soft: linear-gradient(180deg, #ffffff 0%, #fbfbfe 100%);
+    --brand: #4642d8;
+    --brand-2: #7c5cff;
+    --brand-3: #a29dff;
+    --brand-soft: rgba(70, 66, 216, 0.08);
+    --dark: #12132a;
+    --green: #059669;
+    --radius: 1.25rem;
+    --shadow-sm:
+      0 1px 2px rgba(18, 19, 42, 0.04), 0 8px 24px rgba(18, 19, 42, 0.05);
+    --shadow-md:
+      0 2px 6px rgba(18, 19, 42, 0.05), 0 18px 44px rgba(18, 19, 42, 0.08);
+  }
+
   * {
     margin: 0;
     padding: 0;
@@ -92,9 +119,22 @@ import structiaIcon from "../assets/structia-icon.png";
   }
   body {
     font-family: "Archivo Variable", sans-serif;
-    font-size: 1.25rem;
-    background: #f8f8f8;
+    font-size: 1.125rem;
+    color: var(--ink);
+    /* Base con un degradado vertical apenas perceptible para que el
+       fondo no se lea plano de arriba a abajo. */
+    background:
+      linear-gradient(
+        180deg,
+        #fbfbfe 0%,
+        #f6f6fb 32%,
+        #f2f2f9 68%,
+        #f7f7fb 100%
+      )
+      no-repeat;
+    background-color: var(--bg);
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* Reveal on scroll: los elementos con [data-reveal] entran con fundido +
@@ -127,9 +167,10 @@ import structiaIcon from "../assets/structia-icon.png";
   .page-root {
     position: relative;
   }
-  /* Fondo de luz ambiental UNIFICADO para toda la página: una capa fija
-     detrás del contenido, así el degradado fluye continuo entre secciones
-     (sin cortes). Las secciones van transparentes encima. */
+  /* Dos capas de luz ambiental:
+     ::before va fija al viewport (halo constante, muy tenue)
+     ::after recorre todo el documento, así el tinte cambia al hacer
+     scroll y ninguna sección queda sobre un fondo plano. */
   .page-root::before {
     content: "";
     position: fixed;
@@ -138,29 +179,62 @@ import structiaIcon from "../assets/structia-icon.png";
     pointer-events: none;
     background:
       radial-gradient(
-        55% 48% at 10% 6%,
-        rgba(70, 66, 216, 0.22),
-        transparent 66%
+        60% 45% at 6% 2%,
+        rgba(70, 66, 216, 0.07),
+        transparent 68%
       ),
       radial-gradient(
-        55% 48% at 90% 20%,
-        rgba(162, 157, 255, 0.19),
-        transparent 66%
+        55% 45% at 96% 16%,
+        rgba(162, 157, 255, 0.07),
+        transparent 68%
       ),
       radial-gradient(
-        58% 50% at 84% 76%,
-        rgba(124, 92, 255, 0.19),
-        transparent 66%
+        60% 50% at 90% 88%,
+        rgba(124, 92, 255, 0.06),
+        transparent 70%
+      );
+  }
+  .page-root::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(
+        46% 7% at 80% 10%,
+        rgba(124, 92, 255, 0.11),
+        transparent 70%
       ),
       radial-gradient(
-        55% 48% at 14% 90%,
-        rgba(92, 115, 240, 0.16),
-        transparent 66%
+        52% 8% at 10% 27%,
+        rgba(70, 66, 216, 0.1),
+        transparent 70%
+      ),
+      radial-gradient(
+        48% 7% at 90% 45%,
+        rgba(162, 157, 255, 0.12),
+        transparent 70%
+      ),
+      radial-gradient(
+        54% 8% at 8% 63%,
+        rgba(92, 115, 240, 0.09),
+        transparent 70%
+      ),
+      radial-gradient(
+        46% 7% at 84% 80%,
+        rgba(124, 92, 255, 0.1),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 7% at 14% 94%,
+        rgba(70, 66, 216, 0.08),
+        transparent 70%
       );
   }
   .layout-container {
     margin: 0 auto;
-    padding: 0 0.5rem;
+    padding: 0 1rem;
   }
 
   .container {
@@ -182,23 +256,80 @@ import structiaIcon from "../assets/structia-icon.png";
 
   @media (min-width: 768px) {
     .layout-container {
-      max-width: 1000px;
+      max-width: 1080px;
       padding: 0 1.5rem;
+    }
+  }
+
+  /* ===== Utilidades de sección ===== */
+  .section {
+    width: 100%;
+    padding: 3.5rem 0;
+  }
+  .section-head {
+    max-width: 48rem;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    background: var(--brand-soft);
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 4.6vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .section-title em {
+    font-style: italic;
+    color: var(--brand);
+    background: linear-gradient(90deg, var(--brand), var(--brand-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 0.12em;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+  }
+  .section-sub {
+    max-width: 34rem;
+    margin-inline: auto;
+    margin-top: 0.9rem;
+    font-size: clamp(1rem, 2.4vw, 1.15rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+
+  @media (min-width: 768px) {
+    .section {
+      padding: 4.5rem 0;
     }
   }
 
   .site-footer {
     width: 100%;
-    padding: 2rem 1rem;
+    padding: 2.5rem 1rem;
     text-align: center;
-    background: #f8f8f8;
+    border-top: 1px solid var(--line-soft);
     margin-top: auto;
   }
 
   .site-footer-text {
     margin: 0;
-    font-size: 0.9rem;
-    color: rgba(0, 0, 0, 0.5);
+    font-size: 0.85rem;
+    color: var(--ink-mute);
     font-weight: 400;
   }
 </style>

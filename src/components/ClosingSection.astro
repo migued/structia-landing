@@ -1,0 +1,99 @@
+---
+// Cierre final — el único bloque oscuro grande de la página.
+import CtaBlock from "./CtaBlock.astro";
+import Countdown from "./Countdown.astro";
+---
+
+<section class="closing section">
+  <div class="closing-panel" data-reveal>
+    <h2 class="closing-title">
+      Tu combinación ya existe.<br />
+      <em>Solo falta saber qué caja abre.</em>
+    </h2>
+
+    <p class="closing-text">
+      El equipo de Alonso te está esperando… y recuerda: si reservas antes de
+      que se cierre el contador, te llevas el
+      <strong>Bono de Ejecución Flash</strong>.
+    </p>
+
+    <Countdown label="El bono se cierra en" tone="dark" />
+
+    <div class="closing-cta">
+      <CtaBlock tone="dark" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .closing-panel {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2.5rem 1.1rem;
+    border-radius: 1.75rem;
+    background: linear-gradient(165deg, #1b1c38, #0f1024);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 30px 70px rgba(18, 19, 42, 0.32);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  /* Halo morado de fondo */
+  .closing-panel::before {
+    content: "";
+    position: absolute;
+    inset: -40% -20% auto -20%;
+    height: 120%;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 45% at 20% 20%, rgba(124, 92, 255, 0.28), transparent 70%),
+      radial-gradient(40% 45% at 85% 30%, rgba(70, 66, 216, 0.26), transparent 70%);
+  }
+  .closing-panel > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .closing-title {
+    font-size: clamp(1.6rem, 4.6vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    color: #fff;
+    text-wrap: balance;
+  }
+  .closing-title em {
+    font-style: italic;
+    background: linear-gradient(90deg, #a29dff, #ffffff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 0.12em;
+  }
+  .closing-text {
+    max-width: 62ch;
+    font-size: clamp(0.98rem, 2.4vw, 1.1rem);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.72);
+    text-wrap: pretty;
+  }
+  .closing-text strong {
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .closing-cta {
+    width: 100%;
+    margin-top: 0.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .closing-panel {
+      padding: 3.5rem 2.5rem;
+    }
+  }
+</style>

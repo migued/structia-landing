@@ -1,0 +1,438 @@
+---
+// Sección "Al terminar tu Sesión de Apertura sales con tres cosas…"
+// Línea vertical que baja con los números; a la izquierda un mini mockup
+// gráfico y a la derecha la cajita con el contenido de cada paso.
+
+const steps = [
+  {
+    n: "1",
+    title: "Tu Combinación",
+    doing:
+      "Nos sentamos contigo y ponemos todo sobre la mesa: tu tiempo real, el capital que sí puedes mover, tus contactos, tus habilidades y tu crédito.",
+    getting:
+      "Todo lo que ya tienes, junto por primera vez — y casi siempre suele ser más de lo que pensabas.",
+  },
+  {
+    n: "2",
+    title: "Tu Próxima Caja",
+    doing:
+      "Con tu combinación enfrente, te decimos qué operación abre con lo que ya tienes: remodelar y vender, intestadas, remates, estructurar para un inversionista…",
+    getting:
+      "La operación que sí puedes hacer con lo que tienes hoy — no la que le funcionó a alguien más.",
+  },
+  {
+    n: "3",
+    title: "Tu Mapa de Apertura",
+    doing:
+      "No es un resumen de la llamada. Es el plan que llevas años intentando armar solo: dónde estás, cuál es tu operación, por qué esa y cuál es el primer movimiento. Por escrito, con tu nombre, tuyo.",
+    getting:
+      "Un plan que no depende de tu memoria ni de tu motivación, solo de seguirlo.",
+  },
+];
+
+// Mini mockup 1 — inventario de la combinación
+const combination = [
+  { label: "Tiempo", fill: 72 },
+  { label: "Capital", fill: 38 },
+  { label: "Contactos", fill: 86 },
+  { label: "Habilidades", fill: 64 },
+  { label: "Crédito", fill: 50 },
+];
+
+// Mini mockup 2 — cajas disponibles
+const boxes = [
+  { label: "Remodelar y vender", on: false },
+  { label: "Intestadas", on: true },
+  { label: "Remates", on: false },
+  { label: "Estructurar", on: false },
+];
+---
+
+<section class="opening section">
+  <div class="section-head" data-reveal>
+    <span class="eyebrow">Sesión de Apertura</span>
+    <h2 class="section-title">
+      Al terminar tu Sesión de Apertura sales con <em>tres cosas…</em>
+    </h2>
+  </div>
+
+  <ol class="steps">
+    {
+      steps.map((step, i) => (
+        <li class="step" data-reveal style={`--reveal-delay:${i * 90}ms`}>
+          <div class="step-rail">
+            <span class="step-num">{step.n}</span>
+          </div>
+
+          <div class="step-mock">
+            {i === 0 && (
+              <div class="mock">
+                <span class="mock-title">Tu inventario</span>
+                <ul class="mock-rows">
+                  {combination.map((c) => (
+                    <li class="mock-row">
+                      <span class="mock-row__label">{c.label}</span>
+                      <span class="mock-bar">
+                        <span class="mock-bar__fill" style={`width:${c.fill}%`} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                <span class="mock-foot">5 piezas sobre la mesa</span>
+              </div>
+            )}
+
+            {i === 1 && (
+              <div class="mock">
+                <span class="mock-title">Operaciones posibles</span>
+                <ul class="mock-chips">
+                  {boxes.map((b) => (
+                    <li class:list={["mock-chip", b.on && "is-on"]}>
+                      <span class="mock-chip__dot" aria-hidden="true" />
+                      {b.label}
+                    </li>
+                  ))}
+                </ul>
+                <span class="mock-foot mock-foot--accent">
+                  La que abre con lo que ya tienes
+                </span>
+              </div>
+            )}
+
+            {i === 2 && (
+              <div class="mock">
+                <div class="mock-doc">
+                  <span class="mock-doc__tag">Mapa de Apertura</span>
+                  <span class="mock-doc__name" />
+                  <span class="mock-doc__line" />
+                  <span class="mock-doc__line mock-doc__line--short" />
+                  <span class="mock-doc__line" />
+                  <div class="mock-doc__cta">Primer movimiento →</div>
+                </div>
+                <span class="mock-foot">Por escrito, con tu nombre</span>
+              </div>
+            )}
+          </div>
+
+          <article class="step-card">
+            <h3 class="step-title">
+              <span class="step-title__n">{step.n}.</span> {step.title}
+            </h3>
+            <div class="step-block">
+              <span class="step-label">Lo que hacemos</span>
+              <p class="step-text">{step.doing}</p>
+            </div>
+            <div class="step-block step-block--out">
+              <span class="step-label step-label--out">Con lo que sales</span>
+              <p class="step-text">{step.getting}</p>
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .opening {
+    --rail-x: 20px;
+  }
+
+  .steps {
+    position: relative;
+    list-style: none;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 980px;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+  /* Línea continua que baja por toda la sección */
+  .steps::before {
+    content: "";
+    position: absolute;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    left: var(--rail-x);
+    width: 2px;
+    transform: translateX(-1px);
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--brand-3) 8%,
+      var(--brand-2) 50%,
+      var(--brand-3) 92%,
+      transparent
+    );
+    opacity: 0.55;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 40px minmax(0, 1fr);
+    grid-template-areas:
+      "rail card"
+      "rail mock";
+    column-gap: 1rem;
+    row-gap: 1rem;
+    align-items: start;
+  }
+
+  /* Nodo con el número sobre la línea */
+  .step-rail {
+    grid-area: rail;
+    display: flex;
+    justify-content: center;
+    padding-top: 0.35rem;
+  }
+  .step-num {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    box-shadow:
+      0 0 0 6px var(--bg),
+      var(--shadow-sm);
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--brand);
+    line-height: 1;
+  }
+
+  /* Cajita de contenido */
+  .step-card {
+    grid-area: card;
+    background: var(--card-soft);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    padding: 1.4rem 1.35rem;
+    text-align: left;
+  }
+  .step-title {
+    font-size: clamp(1.2rem, 3.4vw, 1.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .step-title__n {
+    color: var(--brand-3);
+  }
+  .step-block + .step-block {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line-soft);
+  }
+  .step-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 0.4rem;
+  }
+  .step-label--out {
+    color: var(--brand);
+  }
+  .step-text {
+    font-size: 0.98rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+  }
+  .step-block--out .step-text {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  /* ===== Mini mockups ===== */
+  .step-mock {
+    grid-area: mock;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .mock {
+    width: 100%;
+    max-width: 320px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
+    text-align: left;
+  }
+  .mock-title {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    margin-bottom: 0.75rem;
+  }
+  .mock-foot {
+    display: block;
+    margin-top: 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-mute);
+  }
+  .mock-foot--accent {
+    color: var(--brand);
+  }
+
+  .mock-rows {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .mock-row {
+    display: grid;
+    grid-template-columns: 5.6rem 1fr;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .mock-row__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .mock-bar {
+    display: block;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(18, 19, 42, 0.07);
+    overflow: hidden;
+  }
+  .mock-bar__fill {
+    display: block;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--brand), var(--brand-3));
+  }
+
+  .mock-chips {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .mock-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 0.6rem;
+    border: 1px solid var(--line-soft);
+    background: rgba(18, 19, 42, 0.02);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink-mute);
+  }
+  .mock-chip__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: rgba(18, 19, 42, 0.18);
+    flex-shrink: 0;
+  }
+  .mock-chip.is-on {
+    background: var(--brand-soft);
+    border-color: rgba(70, 66, 216, 0.24);
+    color: var(--brand);
+  }
+  .mock-chip.is-on .mock-chip__dot {
+    background: var(--brand);
+    box-shadow: 0 0 0 3px rgba(70, 66, 216, 0.16);
+  }
+
+  .mock-doc {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.9rem;
+    border-radius: 0.7rem;
+    border: 1px solid var(--line-soft);
+    background: rgba(18, 19, 42, 0.02);
+  }
+  .mock-doc__tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--brand);
+  }
+  .mock-doc__name {
+    display: block;
+    height: 9px;
+    width: 55%;
+    border-radius: 999px;
+    background: rgba(18, 19, 42, 0.16);
+  }
+  .mock-doc__line {
+    display: block;
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(18, 19, 42, 0.08);
+  }
+  .mock-doc__line--short {
+    width: 72%;
+  }
+  .mock-doc__cta {
+    margin-top: 0.3rem;
+    align-self: flex-start;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    border-radius: 999px;
+    padding: 0.35rem 0.7rem;
+  }
+
+  @media (min-width: 900px) {
+    .opening {
+      --rail-x: 50%;
+    }
+    .steps {
+      gap: 3.5rem;
+    }
+    .step {
+      grid-template-columns: minmax(0, 1fr) 88px minmax(0, 1fr);
+      grid-template-areas: "mock rail card";
+      align-items: center;
+      column-gap: 0;
+    }
+    .step-rail {
+      padding-top: 0;
+    }
+    .step-num {
+      width: 52px;
+      height: 52px;
+      font-size: 1.35rem;
+      box-shadow:
+        0 0 0 8px var(--bg),
+        var(--shadow-sm);
+    }
+    .step-mock {
+      justify-content: flex-end;
+      padding-right: 0.5rem;
+    }
+    .mock {
+      max-width: 340px;
+    }
+    .step-card {
+      padding: 1.75rem 1.6rem;
+      margin-left: 0.5rem;
+    }
+    .step-text {
+      font-size: 1rem;
+    }
+  }
+</style>
